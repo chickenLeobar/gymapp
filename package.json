@@ -1,15 +1,38 @@
 {
-  "name": "gymapp",
+  "name": "@gymapp/root",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "private": true,
   "workspaces": {
     "packages": [
       "mandarina",
-      "manzana"
+      "manzana",
+      "packages/*"
     ],
     "nohoist": [
       "**"
+    ]
+  },
+  "scripts": {
+    "postinstall": "preconstruct dev && manypkg check",
+    "build": "preconstruct build",
+    "fixpre": "preconstruct fix "
+  },
+  "dependencies": {
+    "@babel/core": "^7.14.3",
+    "@babel/node": "^7.14.2",
+    "@babel/plugin-transform-runtime": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/preset-typescript": "^7.13.0",
+    "@changesets/cli": "^2.16.0",
+    "@manypkg/cli": "^0.18.0",
+    "@preconstruct/cli": "^2.1.0"
+  },
+  "preconstruct": {
+    "packages": [
+      "packages/*"
     ]
   }
 }

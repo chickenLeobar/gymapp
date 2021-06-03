@@ -1,0 +1,12 @@
+{
+  "name": "@gymapp/shared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/gymapp-shared.cjs.js",
+  "scripts": {
+    "test": ""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
