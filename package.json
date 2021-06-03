@@ -37,11 +37,9 @@
         "commitizen": "^4.2.4"
     },
     "config": {
-        "config": {
-            "commitizen": {
-                "path": "./node_modules/cz-conventional-changelog",
-                "defaultScope": "global"
-            }
+        "commitizen": {
+            "path": "./node_modules/cz-conventional-changelog",
+            "defaultScope": "global"
         }
     },
     "preconstruct": {
