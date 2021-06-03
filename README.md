@@ -2,15 +2,14 @@
 <h1> 
  GYMAPP
 </h1>
-<p>app for every gyms :) 👍</p>
+<p>app for any gyms :) 👍</p>
 <div>
 
-<div align="left">
+<br>
+
 # GUIDE
 
 | directory              | descripcion |
 | :--------------------- | :---------: |
 | [mandarina](mandarina) |  dashboard  |
 | [manzana](manzana)     | graphql api |
-
-<div>
