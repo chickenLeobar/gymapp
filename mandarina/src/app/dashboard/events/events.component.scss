@@ -1,0 +1,50 @@
+@import "src/sass/utils";
+
+// alter upload ng angular
+:host ::ng-deep .event-uploader > .ant-upload {
+  width: 100%;
+  overflow: hidden;
+  background-color: white;
+  min-height: 320px;
+  height: auto;
+  border: none;
+  @extend .shadow_box;
+}
+
+:host ::ng-deep .event-uploader {
+  display: flex;
+}
+
+:host ::ng-deep .ant-list-split .ant-list-item {
+  cursor: pointer;
+  padding: 10px 15px;
+  &:hover {
+    background-color: rgba($color: blanchedalmond, $alpha: 0.8);
+  }
+}
+
+.upload_placeholder {
+  display: flex;
+  //  justify-content:;
+  flex-direction: column;
+  i {
+    font-size: 50px;
+    padding: 1rem;
+  }
+}
+
+@import "src/sass/responsive";
+@import "src/sass/mixins";
+
+@include contain {
+  width: 900px;
+  margin: 0 auto;
+
+  @include mq(lg) {
+    width: 700px;
+  }
+  @include mq(md) {
+    width: 600px !important;
+    padding: 20px;
+  }
+}

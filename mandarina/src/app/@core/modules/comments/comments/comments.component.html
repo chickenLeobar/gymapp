@@ -1,0 +1,38 @@
+<!-- templates -->
+<!-- custom no comments -->
+<ng-template #customTpl let-name>
+  <div style="text-align: center">
+    <i class="fas fa-comment" style="font-size: 25px"></i>
+    <p>Se el primero en comentar</p>
+  </div>
+</ng-template>
+<!-- list template -->
+<!-- <ng-template #listComments>
+  <nz-card>
+    <nz-list
+      [nzDataSource]="data"
+      [nzRenderItem]="item"
+      [nzItemLayout]="'horizontal'"
+    >
+      <ng-template #item let-item>
+        <app-comment [comment]="item"></app-comment>
+      </ng-template>
+    </nz-list>
+  </nz-card>
+</ng-template> -->
+
+<!--  write comment template -->
+<ng-template #writeComment>
+  <!-- material field -->
+  <app-write-comment
+    (onComment)="sendPrincipalComment($event)"
+  ></app-write-comment>
+</ng-template>
+
+<div class="comments">
+  <nz-card nzBorderless>
+    <ng-container *ngTemplateOutlet="writeComment"></ng-container>
+    <!-- <ng-container *ngTemplateOutlet="listComments"></ng-container> -->
+    <box-comments [comments]="comments$ | async"></box-comments>
+  </nz-card>
+</div>

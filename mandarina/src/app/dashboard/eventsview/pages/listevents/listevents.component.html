@@ -1,0 +1,14 @@
+<div class="contain">
+  <ng-container *ngIf="currentCategorie">
+    <app-display-categorie
+      [categorie]="currentCategorie"
+    ></app-display-categorie>
+  </ng-container>
+  <app-row-show
+    [showButton]="item.showButton"
+    *ngFor="let item of informationArgs"
+    [items]="programs"
+    [args]="item.args"
+    [label]="item.label"
+  ></app-row-show>
+</div>

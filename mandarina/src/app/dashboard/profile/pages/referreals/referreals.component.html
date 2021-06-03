@@ -1,0 +1,33 @@
+<div class="contain">
+  <h1 class="title line_addon w-100">Referidos</h1>
+  <nz-table [nzData]="referreals" #table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Telefono</th>
+        <th>Correo</th>
+        <th>Ingreso</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let item of table.data">
+      <tr>
+        <td>
+          {{ item.name }}
+        </td>
+        <td>
+          {{ item.lastName }}
+        </td>
+        <td>
+          {{ item.phone }}
+        </td>
+        <td>
+          {{ item.email }}
+        </td>
+        <td>
+          {{ item.create | date: "short" }}
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

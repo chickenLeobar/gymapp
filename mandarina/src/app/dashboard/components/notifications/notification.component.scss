@@ -1,0 +1,86 @@
+@import "src/sass/variables";
+@import "src/sass/utils";
+$size-container: 350px;
+
+$refer-icon-color: #08f218;
+$icon-event-color: #4849ff;
+$heigh-viewport: 300px;
+.notifications_container {
+  width: $size-container !important;
+  font-size: 12px;
+  .item {
+    width: 100%;
+    margin: 10px 0;
+    cursor: pointer;
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .icon {
+      //is i
+      &.refer {
+        color: $refer-icon-color;
+      }
+      &.event {
+        color: $icon-event-color;
+      }
+      i {
+        padding: 10px;
+        font-size: 2.6em;
+      }
+      align-self: center;
+    }
+    display: grid;
+    grid-template-columns: 30% 70%;
+    // detail side
+    .detail {
+      // title
+      .title {
+        color: black;
+        text-decoration: none;
+        font-size: 1.2em;
+      }
+      p {
+        line-height: 1.5em;
+        padding: 3px 0;
+      }
+
+      //
+      .time {
+        font-style: italic;
+        opacity: 0.7;
+      }
+    }
+    padding: 0 10px;
+    // hover effect
+    @include hoverMenu;
+  }
+}
+
+.viewport_container {
+  height: $heigh-viewport;
+  width: $size-container;
+  overflow-x: hidden;
+  //  modify scroll
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($color: $secondary-color, $alpha: 0.6);
+  }
+}
+
+// not found
+.not_found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  i {
+    padding: 10px;
+    font-size: 1.8rem;
+    color: $secondary-color;
+  }
+  span {
+    font-size: 1rem;
+  }
+}

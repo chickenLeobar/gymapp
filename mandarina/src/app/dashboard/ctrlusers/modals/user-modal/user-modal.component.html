@@ -1,0 +1,88 @@
+<div class="container_user_modal">
+    <h1 class="title line_addon">Detalle de usuario</h1>
+    <!-- user detail -->
+    <ng-template #tplStatusExtra>
+        <nz-badge [nzColor]="user.online ? '#108ee9' : '#2db7f5'" nzText="{{ user.online ? 'online' : 'Desconectado' }}"></nz-badge>
+    </ng-template>
+
+    <nz-descriptions nzBordered [nzExtra]="tplStatusExtra">
+        <nz-descriptions-item nzTitle="Nombre" [nzSpan]="2">{{ user.name }}
+        </nz-descriptions-item>
+
+        <nz-descriptions-item nzTitle="Apellido" [nzSpan]="2">{{ user.lastName }}
+        </nz-descriptions-item>
+
+        <nz-descriptions-item nzTitle="Codigo" [nzSpan]="4">
+            <p nz-typography nzCopyable [nzContent]="user.code">
+                {{ user.code }}
+            </p>
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Creditos" nzSpan="2">
+            {{ user.credits }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="C. Referido" nzSpan="2">
+            {{ user.referrealCredits }}
+        </nz-descriptions-item>
+        <nz-descriptions-item *visibleRole="['ADMIN']" nzTitle="Estado de cuenta" [nzSpan]="2">
+            <ng-container>
+                <nz-switch [nzControl]="true" (click)="chagueState($event)" [formControl]="state" [nzLoading]="loadingSwitch"></nz-switch>
+            </ng-container>
+        </nz-descriptions-item>
+    </nz-descriptions>
+    <!-- actions -->
+    <nz-divider></nz-divider>
+
+    <ng-template #tplHola></ng-template>
+
+    <ng-container *visibleRole="['ADMIN']">
+        <app-role-check (eventRoles)="handleRoles($event)" [roles]="user.rol"></app-role-check>
+    </ng-container>
+    <nz-divider></nz-divider>
+    <nz-form-item>
+        <nz-form-label> C. Referido </nz-form-label>
+        <nz-form-control>
+            <nz-input-number nzMin="0" [(ngModel)]="referralCredits" (ngModelChange)="changueReferrealCredits()">
+            </nz-input-number>
+        </nz-form-control>
+    </nz-form-item>
+
+    <nz-divider></nz-divider>
+    <nz-space>
+        <nz-space-item *visibleRole="['ADMIN']">
+            <button nz-button nzType="primary" (click)="showModalCredits()">
+        creditos
+      </button>
+        </nz-space-item>
+        <nz-space-item>
+            <button nz-button nzType="primary" (click)="openChat()">
+        <i nz-icon nzType="wechat" nzTheme="fill"></i>
+      </button>
+        </nz-space-item>
+        <nz-space-item>
+            <button nz-button nzType="primary">
+        <i class="fas fa-envelope"></i>
+      </button>
+        </nz-space-item>
+        <nz-space-item [hidden]="!changues">
+            <button nz-button nzType="primary" (click)="saveChangues()" nzDanger>
+        Guardar cambios
+      </button>
+        </nz-space-item>
+    </nz-space>
+</div>
+
+<ng-template #creditstpl>
+    <nz-form-item>
+        <nz-form-label> Creditos </nz-form-label>
+        <nz-form-control>
+            <nz-input-number [nzMin]="0" [(ngModel)]="creditRequest.credits">
+            </nz-input-number>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label> Detalle </nz-form-label>
+        <nz-form-control>
+            <textarea nz-input [(ngModel)]="creditRequest.reason" placeholder="Razón de los creditos" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+</ng-template>

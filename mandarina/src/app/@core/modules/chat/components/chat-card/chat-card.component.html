@@ -1,0 +1,41 @@
+<ng-template #principal>
+  <app-chat-header> Principal </app-chat-header>
+  <!-- search component -->
+  <app-chat-search></app-chat-search>
+  <!-- active asesor -->
+  <span class="subtitle"> {{ isUser ? "Asesores" : "Usuarios" }} </span>
+  <!--avatar list -->
+  <app-chat-lists-avatar>
+    <app-chat-avatar
+      *ngFor="let item of activeUsers | async"
+      class="swiper-slide"
+      [avatar]="item.image"
+      [name]="item.name"
+      [active]="item.online"
+      (click)="enterChat(item.id)"
+    ></app-chat-avatar>
+  </app-chat-lists-avatar>
+  <span class="subtitle"> Conversaciones recientes </span>
+  <!-- rencents messages -->
+  <app-chat-list-messages
+    [items]="recentsMessages | async"
+    (clickEvent)="clickItem($event)"
+  >
+  </app-chat-list-messages>
+</ng-template>
+<ng-template #messagges let-id="id">
+  <app-chat-header>
+    <button chatBtnreverse (click)="backPrincipal()">
+      <i nz-icon nzType="left" nzTheme="outline"></i>
+    </button>
+    {{ nameRemitent | async }}
+  </app-chat-header>
+  <!-- render conversation. -->
+  <app-chat-conversation [items]="messages$ | async"> </app-chat-conversation>
+
+  <app-chat-card-form [formControl]="messageControl"></app-chat-card-form>
+</ng-template>
+<div class="chat-card shadow-lg" #card>
+  <!-- render dinaicly screens -->
+  <ng-template [cdkPortalOutlet]="currentScreen"> </ng-template>
+</div>

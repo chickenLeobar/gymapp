@@ -1,0 +1,42 @@
+<ng-template #modalCredits>
+  <h3 class="title line_addon">Creditos</h3>
+  <form nz-form [formGroup]="formCredits">
+    <div class="w-100">
+      <nz-form-item>
+        <nz-form-label nzSpan="3.5"> Creditos </nz-form-label>
+        <nz-form-control [nzErrorTip]="'Este campo es requerido'">
+          <nz-input-number [nzMin]="0" formControlName="credits">
+          </nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <nz-form-item>
+      <nz-form-label nzSpan="3.5">Detalle</nz-form-label>
+      <nz-form-control>
+        <textarea
+          nz-input
+          formControlName="reason"
+          placeholder="Razón de los creditos"
+          [nzAutosize]="{ minRows: 2, maxRows: 6 }"
+        ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</ng-template>
+
+<div class="container_modal">
+  <h2 class="title line_addon">Operación múltiple</h2>
+  <nz-descriptions nzBordered>
+    <nz-descriptions-item nzTitle="Usurios seleccionados">
+      {{ userIds.length }}
+    </nz-descriptions-item>
+  </nz-descriptions>
+  <nz-divider></nz-divider>
+  <nz-space>
+    <nz-space-item>
+      <button nz-button nzType="primary" (click)="openModalCredits()">
+        Aplicar creditos
+      </button>
+    </nz-space-item>
+  </nz-space>
+</div>

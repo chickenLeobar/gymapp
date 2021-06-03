@@ -1,0 +1,52 @@
+<div
+  class="contain"
+  fxLayout="column"
+  fxLayoutAlign="start space-between"
+  fxLayoutGap="20px"
+>
+  <h1 class="title line_addon my-4 py-2">
+    {{ configAction.action + "s" }} creados
+  </h1>
+
+  <nz-card>
+    <nz-table
+      #table
+      [nzData]="viewEventsData"
+      [nzNoResult]="
+        'Todavia no has agregadado ningún ' + configAction.action | lowercase
+      "
+    >
+      <thead>
+        <tr>
+          <th>Titúlo</th>
+          <th>Creado</th>
+          <th>publicado</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of table.data">
+          <td>
+            {{ item.name }}
+          </td>
+          <td>
+            {{ item.createEvent | dfnsFormatDistanceToNow: options }}
+          </td>
+          <td>
+            <nz-tag [nzColor]="getStateEvent(item.published).color">
+              {{ getStateEvent(item.published).text }}
+            </nz-tag>
+          </td>
+          <td>
+            <button nz-button (click)="redirectEdit(item)" nzType="primary">
+              ver
+            </button>
+
+            <nz-divider nzType="vertical"></nz-divider>
+            <button nz-button nzDanger nzType="primary">eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+</div>

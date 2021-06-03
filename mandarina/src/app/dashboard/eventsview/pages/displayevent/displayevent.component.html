@@ -1,0 +1,151 @@
+<article
+  class="contain"
+  *ngIf="currentEvent?.sesions"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+>
+  <!-- MEDIA PREVIEW -->
+  <nz-card nzBorderless class="w-100" class="media-card">
+    <le-title [text]="currentEvent.name" lineAddon leBack> </le-title>
+    <img
+      nz-image
+      class="w-100"
+      *ngIf="!isVideo"
+      [nzSrc]="currentEvent.eventCover | resolveUrl: true"
+      alt=""
+    />
+    <le-reproductor
+      *ngIf="isVideo"
+      [video]="currentEvent.video.url"
+      [poster]="currentEvent.eventCover | resolveUrl: true"
+    ></le-reproductor>
+  </nz-card>
+  <!-- information -->
+  <nz-space class="information">
+    <div fxLayout fxLayoutAlign="center center" style="width: 100%">
+      <badge-action>
+        <!-- sesiones -->
+        <bagde-action-item
+          (click)="visibleSesions = true"
+          [count]="currentEvent.sesions.length"
+        >
+          <i class="far fa-address-book"></i>
+        </bagde-action-item>
+        <bagde-action-item
+          [count]="sizeComments | async"
+          (click)="openComments()"
+        >
+          <i class="fas fa-comments"></i>
+        </bagde-action-item>
+        <bagde-action-item [count]="20" (click)="addInteraction()">
+          <i
+            nz-icon
+            nzType="like"
+            style="font-size: 28px; margin: 0; padding: 0"
+            [nzTheme]="currentEvent.isMeReaction ? 'fill' : 'outline'"
+          ></i>
+        </bagde-action-item>
+      </badge-action>
+    </div>
+  </nz-space>
+  <!-- is not register -->
+  <nz-ribbon [nzText]="currentEvent.credits + ' C'" *ngIf="!isRegister">
+    <nz-card class="w-100 my-4">
+      <p nz-typography>Aún no ha sido registrado a este {{ label }}</p>
+      <button
+        nz-button
+        nzType="primary"
+        [disabled]="isRegister"
+        (click)="registerEvent()"
+      >
+        {{ isRegister ? "Registrado" : "Registrarse" }}
+      </button>
+    </nz-card>
+  </nz-ribbon>
+  <!-- content -->
+  <nz-card class="description">
+    <h3 class="title line_addon">Descripción</h3>
+    <div class="cotent_text">
+      <p class="paragraph" *viewMore="{ sizeCLose: 100, sizeShow: 200 }">
+        {{ currentEvent.description }}
+      </p>
+    </div>
+  </nz-card>
+</article>
+
+<nz-drawer
+  [nzWidth]="drawerWidth"
+  [nzVisible]="visibleSesions"
+  (nzOnClose)="visibleSesions = !visibleSesions"
+>
+  <!--  sesiones-->
+  <nz-card class="w-100 my-4">
+    <section class="contianer_sesions">
+      <le-title
+        text="Sesiones:"
+        lineAddon
+        leBack
+        [leCustomBackCallback]="closeSesionDrawer"
+      ></le-title>
+      <ng-template #notFoundSesions>
+        <nz-empty nzNotFoundContent="No se ha gregado sesiones todavía">
+        </nz-empty>
+      </ng-template>
+      <cdk-virtual-scroll-viewport
+        itemSize="10"
+        *ngIf="
+          currentEvent?.sesions && currentEvent.sesions.length > 0;
+          else notFoundSesions
+        "
+        class="display"
+        [ngStyle]="{ height: sizeDisplay }"
+      >
+        <nz-space-item *cdkVirtualFor="let sesion of currentEvent.sesions">
+          <app-item-sesion
+            (selectItem)="navigateSesion($event)"
+            [sesion]="sesion"
+          ></app-item-sesion>
+        </nz-space-item>
+      </cdk-virtual-scroll-viewport>
+    </section>
+  </nz-card>
+  <!-- comments -->
+</nz-drawer>
+<!-- drawer coments -->
+<nz-drawer
+  nzMask="false"
+  nzPlacement="right"
+  (nzOnClose)="visibleDrawerComments = false"
+  [nzVisible]="visibleDrawerComments"
+  nzWrapClassName="commentStylesDrawer"
+  [nzBodyStyle]="stylesCommentBodyDrawer"
+  [nzWidth]="widthComments"
+>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <le-title
+      [text]="(sizeComments | async) || '' + ' comentarios'"
+      leBack
+      lineAddon
+      class="w-100"
+      [leCustomBackCallback]="closeCommentsDrawer"
+    >
+    </le-title>
+    <div class="w-100">
+      <p nz-typography>
+        {{ currentEvent?.description }}
+      </p>
+    </div>
+    <ng-container
+      *ngIf="
+        currentEvent?.includeComments && currentEvent?.id_comment;
+        else notFoundComments
+      "
+    >
+      <app-comments [idBootrapComment]="currentEvent.id_comment"></app-comments>
+    </ng-container>
+    <ng-template #notFoundComments>
+      <nz-empty nzNotFoundContent="Los comentarios estan desactivados">
+      </nz-empty>
+    </ng-template>
+  </div>
+</nz-drawer>

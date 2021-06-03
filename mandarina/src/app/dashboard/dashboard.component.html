@@ -1,0 +1,98 @@
+<nz-layout class="app-layout">
+  <nz-sider
+    class="menu-sidebar"
+    [nzWidth]="widthSidebar"
+    [nzCollapsedWidth]="collapsableWidth"
+    style="overflow: hidden"
+    [(nzCollapsed)]="isCollapsed"
+  >
+    <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+      <i
+        class="trigger"
+        nz-icon
+        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+      ></i>
+    </span>
+    <div class="logo">
+      <img src="assets/wellenesslogo.png" alt="" />
+    </div>
+    <ul
+      nz-menu
+      nzTheme="dark"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+    >
+      <ng-container *ngTemplateOutlet="tplmenu; context: { $implicit: menu }">
+      </ng-container>
+      <ng-template #tplmenu let-menu>
+        <ng-container *ngFor="let item of menu">
+          <ng-container *visibleRole="item.roles">
+            <li
+              class="sibebar_item"
+              *ngIf="!item.items"
+              nz-menu-item
+              [routerLink]="item.route"
+            >
+              <ng-container *ngIf="!item.isFont; else fontAlternative">
+                <i nz-icon [nzType]="item.icon"></i>
+              </ng-container>
+              <ng-template #fontAlternative>
+                <i [class]="item.icon"> </i>
+              </ng-template>
+              <span>{{ isCollapsed ? "" : item.name }}</span>
+            </li>
+            <li
+              nz-submenu
+              class="sidebar_item"
+              *ngIf="item.items"
+              [nzTitle]="titleTpl"
+            >
+              <ng-template #titleTpl>
+                <ng-container *ngIf="!item.isFont; else fontAlternative">
+                  <i nz-icon [nzType]="item.icon"></i>
+                </ng-container>
+                <ng-template #fontAlternative>
+                  <i [class]="item.icon"> </i>
+                </ng-template>
+                <span>{{ isCollapsed ? "" : item.name }}</span>
+              </ng-template>
+
+              <ul>
+                <li nz-menu-item *ngFor="let subItem of item.items">
+                  <a [routerLink]="subItem.route">
+                    {{ subItem.name }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+          </ng-container>
+        </ng-container>
+      </ng-template>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <ul nz-menu nzMode="horizontal">
+        <li
+          nz-menu-item
+          routerLink="view/explorer"
+          routerLinkActive=""
+          [queryParams]="{ type: 'programs' }"
+        >
+          Programas
+        </li>
+
+        <!-- <li nz-menu-item>Anuncios</li> -->
+        <app-navbar></app-navbar>
+      </ul>
+      <app-alert></app-alert>
+    </nz-header>
+    <!-- <nz-content> -->
+    <div class="inner-content" fxLayout="row" fxLayoutAlign="center start">
+      <router-outlet class="content"></router-outlet>
+    </div>
+    <!-- </nz-content> -->
+  </nz-layout>
+</nz-layout>
+<!-- chat type float -->
+<app-chat type="FLOAT"></app-chat>

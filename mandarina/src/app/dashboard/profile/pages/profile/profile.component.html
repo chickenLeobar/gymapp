@@ -1,0 +1,168 @@
+<ng-template #upload>
+  <nz-upload
+    class="avatar-uploader"
+    [nzCustomRequest]="actionServer"
+    nzName="avatar"
+    style="width: 70%"
+    nzListType="picture"
+    [nzShowUploadList]="false"
+    (nzChange)="handleChange($event)"
+  >
+    <ng-container *ngIf="!user?.image">
+      <div class="upload_placeholder">
+        <i class="far fa-grin"></i>
+        <span>Foto de Perfil</span>
+      </div>
+    </ng-container>
+    <img
+      *ngIf="user?.image"
+      [src]="user.image | imageresolve"
+      style="width: 100%"
+    />
+  </nz-upload>
+</ng-template>
+
+<ng-template #pendenting>
+  <nz-collapse>
+    <nz-collapse-panel [nzHeader]="'Confirmar email'" [nzActive]="true">
+      <app-changue-email [user]="user"></app-changue-email>
+    </nz-collapse-panel>
+  </nz-collapse>
+</ng-template>
+
+<ng-template #detailprofile>
+  <table class="table_profile">
+    <tr>
+      <th>nombre</th>
+      <td *ngIf="!edit">
+        {{ user.name }}
+      </td>
+      <td *ngIf="edit">
+        <input
+          type="text"
+          [(ngModel)]="user.name"
+          class="input_for_Edit"
+          value="{{ user.name }}"
+        />
+      </td>
+    </tr>
+    <tr>
+      <th>Apellido</th>
+      <td *ngIf="!edit">
+        {{ user.lastName }}
+      </td>
+      <td *ngIf="edit">
+        <input
+          [(ngModel)]="user.lastName"
+          type="text"
+          class="input_for_Edit"
+          value="{{ user.lastName }}"
+        />
+      </td>
+    </tr>
+    <tr>
+      <th>Email</th>
+
+      <td *ngIf="!edit">
+        {{ user.email }}
+      </td>
+      <td *ngIf="edit">
+        <input
+          [(ngModel)]="user.email"
+          type="text"
+          class="input_for_Edit"
+          value="{{ user.email }}"
+        />
+      </td>
+    </tr>
+    <tr>
+      <th>codigo</th>
+      <td>
+        <p nz-typography nzCopyable [nzContent]="user.code">
+          {{ user.code }}
+        </p>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Nacimiento</th>
+      <td *ngIf="!edit">
+        {{ user.birth | date: "yyyy-MM-dd" }}
+      </td>
+      <td>
+        <nz-date-picker
+          *ngIf="edit"
+          [(ngModel)]="user.birth"
+          (ngModelChange)="changeBirth($event)"
+        ></nz-date-picker>
+      </td>
+    </tr>
+  </table>
+</ng-template>
+
+<ng-template #description>
+  <div class="profile_description">
+    <h3 class="title line_addon">Descripción</h3>
+    <p *ngIf="!edit" class="text-left pa ragraph">{{ user.description }}</p>
+    <mat-form-field *ngIf="edit" appearance="fill" class="w-100">
+      <mat-label> TextArea </mat-label>
+      <textarea
+        matInput
+        rows="8"
+        [(ngModel)]="user.description"
+        type="text"
+        required
+        placeholder=""
+      ></textarea>
+    </mat-form-field>
+  </div>
+</ng-template>
+
+<!-- layout -->
+<ng-template #profileTemplate>
+  <div
+    gdAreas="photo photo | detail detail | description description"
+    gdColumn="2"
+    gdRow="2"
+    *ngIf="user"
+  >
+    <div
+      gdArea="photo"
+      class="my-4"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+    >
+      <ng-container [ngTemplateOutlet]="upload"> </ng-container>
+    </div>
+    <div gdArea="detail" class="my-4">
+      <ng-container *ngIf="!user.comfirmed">
+        <h2 class="title line_addon">Pendiente</h2>
+        <ng-container [ngTemplateOutlet]="pendenting"></ng-container>
+      </ng-container>
+
+      <h2 class="title line_addon my-2">Datos de Perfil</h2>
+      <ng-container [ngTemplateOutlet]="detailprofile"></ng-container>
+    </div>
+    <div gdArea="description">
+      <ng-container [ngTemplateOutlet]="description"></ng-container>
+    </div>
+    <button nz-button nzType="primary" (click)="editProfile()">
+      {{ edit ? "guardar" : "editar" }}
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #Credits> </ng-template>
+
+<!-- navigate -->
+
+<section class="contain">
+  <nz-tabset nzType="card" nzSelectedIndex="0">
+    <nz-tab nzTitle="perfil">
+      <ng-container *ngTemplateOutlet="profileTemplate"></ng-container>
+    </nz-tab>
+    <nz-tab nzTitle="Creditos">
+      <app-handle-credits></app-handle-credits>
+    </nz-tab>
+  </nz-tabset>
+</section>

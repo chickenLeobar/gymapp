@@ -1,0 +1,45 @@
+query test{
+   ping
+}
+
+query refreshToken{
+  renewToken
+}
+
+query getUsers(){
+   users(idUser :  $idUser){
+      
+  }
+}
+
+mutation addManualCredits($credits: Int!,$reason: String!,$idCredit: ID!){
+   addManualCredits(credits : $credits , reason : $reason , idCredit : $idCredit)
+}
+
+mutation updateManualReferralCredit($credits: Int!,$idCredit: ID!){
+   addReferrealCredits(credits : $credits , idCredit : $idCredit)
+}
+
+mutation updateRoles($roles: [Role!]!,
+$idUser: Int!){
+ updateRoles(roles : $roles , idUser : $idUser)  
+}
+
+mutation suspendAccount($state: Boolean! ,$idUser: ID!){
+   suspendAccount(idUser : $isUser , state : $state)
+}
+
+fragment user_view_1 on UserViewCtrl{
+    name
+    lastName
+    code
+    id
+    email
+    image
+    rol
+    description
+    create
+    phone
+    comfirmed
+    online
+}

@@ -1,0 +1,71 @@
+<div class="contain">
+    <h1 class="title line_addon">Usuarios</h1>
+    <ng-template #footer>
+        <button nz-button nzType="primary" [hidden]="!hideButtonOperations" (click)="opendModalMultipleUsers()">
+      Operación
+    </button>
+    </ng-template>
+
+    <nz-table #tableUsers [nzFooter]="footer" nzSize="small" [nzData]="users" [nzScroll]="{ x: '600px' }">
+        <thead>
+            <tr>
+                <th nzLeft [nzChecked]="checkedAll" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+                <th nzLeft>Nombre</th>
+                <th>Codigo</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Estado</th>
+                <th>Creditos</th>
+                <!-- <th>C. Referido</th> -->
+                <th></th>
+                <th nzRight>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of tableUsers.data">
+                <td nzLeft [nzChecked]="idsSelect.has(item.id)" (nzCheckedChange)="singleChecked(item.id, $event)"></td>
+                <td nzLeft>
+                    {{ item.name }}
+                </td>
+                <td>
+                    <p nz-typography nzCopyable [nzContent]="item.code">
+                        {{ item.code }}
+                    </p>
+                </td>
+                <td>
+                    <p nz-typography nzCopyable [nzContent]="item.email">
+                        {{ item.email }}
+                    </p>
+                </td>
+                <td>
+                    <p nz-typography nzCopyable [nzContent]="item.phone">
+                        {{ item.phone }}
+                    </p>
+                </td>
+                <td>
+                    <nz-tag [nzColor]="item.suspended ? '#2db7f5' : '#108ee9'">
+                        {{ item.suspended ? "suspendido" : "activo" }}
+                    </nz-tag>
+                </td>
+
+                <td>
+                    {{ item.credits }}
+                </td>
+                <td>
+                    <nz-tag [nzColor]="item.online ? '#108ee9' : '#2db7f5'">
+                        {{ item.online ? "online" : "Desconectado" }}
+                    </nz-tag>
+                </td>
+                <td nzRight>
+                    <button (click)="openModalOnlyUser(item)" nz-button nzType="primary">
+            <i nz-icon nzType="eye" nzTheme="outline"></i>
+          </button>
+                </td>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>
+
+<ng-template #modal let-data>
+    <app-user-modal [user]="data.user"></app-user-modal>
+</ng-template>

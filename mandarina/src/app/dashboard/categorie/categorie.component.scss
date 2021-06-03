@@ -1,0 +1,37 @@
+:root {
+  background: red;
+}
+
+.tabset {
+  //   border: 2px solid black;
+  width: 100%;
+}
+@import "src/sass/utils";
+
+// alter upload ng angular
+:host ::ng-deep .event-uploader > .ant-upload {
+  width: 100%;
+  overflow: hidden;
+  background-color: white;
+  min-height: 320px;
+  height: auto;
+  border: none;
+  @extend .shadow_box;
+}
+
+:host ::ng-deep .event-uploader {
+  display: flex;
+}
+
+@import "src/sass/mixins";
+@import "src/sass/responsive";
+@include contain {
+  width: 800px;
+  @include mq(lg) {
+    width: 700px;
+  }
+  @include mq(md) {
+    width: 600px;
+    padding: 20px;
+  }
+}

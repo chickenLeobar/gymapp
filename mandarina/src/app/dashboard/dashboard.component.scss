@@ -1,0 +1,163 @@
+@import "src/sass/variables";
+@import "src/sass/mixins";
+@import "src/sass/responsive";
+//local variables
+$space-sidebar: 90px;
+
+:host {
+  display: flex;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 180px;
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+.app-layout {
+  min-height: 100vh;
+}
+%sidebarmarginAppy {
+  @include layout-bp(lt-sm) {
+    margin-left: 10px;
+    margin-right: -10px;
+  }
+  @include layout-bp(gt-xs) {
+    margin-left: $space-sidebar !important;
+  }
+}
+
+.menu-sidebar {
+  position: fixed;
+  z-index: 10;
+  min-height: 100vh;
+  box-shadow: 1px 0 5px rgba(0, 21, 41, 0.35);
+  a {
+    color: black;
+  }
+  .sidebar_item {
+    ul {
+      li {
+        &:hover {
+          background-color: #4849ff;
+          a {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+.sibebar_item.ant-menu-item-selected {
+  color: white;
+  border: none;
+  outline: none;
+}
+.sibebar_item:hover {
+  color: white;
+  border: none;
+  outline: none;
+  background: #4849ff;
+}
+.header-trigger {
+  height: 64px;
+  padding: 20px 24px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: all 0.3s, padding 0s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.sidebar-logo {
+  position: relative;
+  height: 64px;
+  padding-left: 24px;
+  overflow: hidden;
+  line-height: 64px;
+  background: white;
+  transition: all 0.3s;
+}
+
+.sidebar-logo img {
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  vertical-align: middle;
+}
+
+.sidebar-logo h1 {
+  display: inline-block;
+  margin: 0 0 0 20px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+  vertical-align: middle;
+}
+
+nz-header {
+  padding: 0;
+  width: 100%;
+  z-index: 2;
+  ul {
+    @extend %sidebarmarginAppy;
+  }
+}
+
+nz-sider {
+  overflow: visible !important;
+  position: relative;
+  .header-trigger {
+    float: right;
+    display: flex;
+    justify-content: center;
+    right: -50px;
+    top: 80%;
+    background: $white-color;
+    z-index: 20;
+    position: absolute;
+  }
+}
+
+@include contain() {
+}
+
+nz-content {
+  overflow-x: hidden;
+  margin-left: 0px;
+  @extend %sidebarmarginAppy;
+  overflow-y: scroll;
+  height: 80vh;
+  margin: 0 !important;
+  @include layout-bp(lt-sm) {
+    width: 105vw !important;
+  }
+  &::-webkit-scrollbar {
+    visibility: hidden;
+  }
+}
+
+.inner-content {
+  padding: 24px;
+  background: #fff;
+  height: 90vh;
+  overflow-y: scroll;
+
+  padding-top: 100px;
+  // height: 100%;
+  @include layout-bp(lt-sm) {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+  }
+  @extend %sidebarmarginAppy;
+}

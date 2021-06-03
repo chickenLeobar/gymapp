@@ -1,0 +1,135 @@
+<!-- menu -->
+<!-- tab form -->
+<ng-template #formCategorie let-isModal>
+  <h3 class="title line_addon">
+    {{ isModal ? "Editar categoria" : "Agregar categoria" }}
+  </h3>
+  <span class="subtitle" style="margin: 10px 0"> Imagen </span>
+  <nz-upload
+    style="margin: 10px 0"
+    nzAccept="image/x-png,image/gif,image/jpeg"
+    class="event-uploader"
+    [nzCustomRequest]="actionServer"
+    nzName="avatar"
+    nzListType="picture-card"
+    [nzShowUploadList]="false"
+  >
+    <ng-container *ngIf="!previewImage">
+      <div class="upload_placeholder">
+        <i class="fas fa-upload"></i>
+        <span *ngIf="!isModal">Imagen de la Categoria</span>
+      </div>
+    </ng-container>
+    <img
+      *ngIf="previewImage"
+      class="img_reponsive"
+      [src]="previewImage"
+      alt=""
+      style="width: 100%"
+    />
+  </nz-upload>
+  <form
+    nz-form
+    [formGroup]="categorieForm"
+    (ngSubmit)="sendCategorie()"
+    nzLayout="horizontal"
+  >
+    <nz-form-item>
+      <nz-form-control class="control_form_le" [nzErrorTip]="errorTemplate">
+        <nz-form-label> Nombre </nz-form-label>
+        <input
+          type="text"
+          placeholder="Nombre de la categoria"
+          nz-input
+          formControlName="name"
+          name=""
+          id=""
+        />
+
+        <ng-template #errorTemplate let-control>
+          <ng-container *ngIf="control.hasError('minlength')">
+            Debe ingresas al menos {{ config.minLength }} carateres
+          </ng-container>
+
+          <ng-container *ngIf="control.hasError('maxlength')">
+            Debe ingresar {{ config.maxLength }} caracteres como maximo
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control class="control_form_le" nzErrorTip="">
+        <nz-form-label> Descripción </nz-form-label>
+        <textarea
+          name="description"
+          formControlName="description"
+          cols="30"
+          nz-input
+          placeholder="Descripción de la categoria"
+        ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <button nz-button nzType="primary" *ngIf="!isModal">
+      {{ editMode ? "Guardar cambios" : "Guardar" }}
+    </button>
+    <div mat-dialog-actions *ngIf="isModal">
+      <button nz-button type="submit" mat-dialog-close nzType="primary">
+        Guardar cambios
+      </button>
+      <button mat-button type="button" (click)="deleteCategorie()">
+        <mat-icon style="color: green">delete</mat-icon>
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<!-- tab list categories -->
+
+<ng-template #listCategories>
+  <nz-table #table [nzData]="categories | async">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Programas</th>
+        <th>Eventos</th>
+        <th>creación</th>
+        <th></th>
+        <!-- <th>Action</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of table.data">
+        <td>
+          {{ item.name }}
+        </td>
+        <td>
+          {{ item.countPrograms }}
+        </td>
+        <td>
+          {{ item.countEvents }}
+        </td>
+        <td>
+          {{ item.createCategorie | date: "short" }}
+        </td>
+
+        <td>
+          <button nz-button nzType="link" (click)="viewOptionsTable(item)">
+            <mat-icon>visibility</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</ng-template>
+
+<div class="contain">
+  <nz-tabset [nzSize]="'large'" class="tabset" [nzTabPosition]="positionTap">
+    <nz-tab nzTitle="Crear Categoria">
+      <!-- form categorie -->
+      <ng-container [ngTemplateOutlet]="formCategorie"></ng-container>
+    </nz-tab>
+    <nz-tab nzTitle="Categorias">
+      <ng-container [ngTemplateOutlet]="listCategories"></ng-container>
+    </nz-tab>
+  </nz-tabset>
+</div>

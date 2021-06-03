@@ -1,0 +1,8 @@
+@import "src/sass/responsive";
+.contain {
+  width: 800px;
+  @include mq(md) {
+    width: 600px !important;
+    padding: 20px;
+  }
+}

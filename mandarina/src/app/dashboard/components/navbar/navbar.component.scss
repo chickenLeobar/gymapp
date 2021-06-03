@@ -1,0 +1,52 @@
+@import "src/sass/variables";
+@import "src/sass/utils";
+
+:host {
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10%;
+  margin-top: 10px;
+}
+
+.button_nav {
+  cursor: pointer;
+  i {
+    font-size: 25px;
+  }
+  padding-bottom: 10px;
+  transition: transform 0.1s;
+  display: inline-block;
+  margin: 10px 15px;
+}
+
+.menu_user {
+  font-size: 15px;
+  padding: 0 !important;
+
+  ul {
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    .item {
+      text-align: left;
+      padding: 10px 10px;
+      display: grid;
+      width: 100% !important;
+      margin: 10px auto;
+
+      grid-template-columns: 30% 70%;
+      color: $secondary-color;
+      i {
+        font-size: 1.5rem;
+      }
+      span {
+        color: black;
+      }
+      @include hoverMenu;
+    }
+  }
+}

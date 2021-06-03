@@ -1,0 +1,7 @@
+<div class="contain">
+  <h3 class="title line_addon">Tus {{ type }}</h3>
+  <ngx-masonry [options]="myOptions">
+    <app-card ngxMasonryItem [item]="item" *ngFor="let item of events$ | async">
+    </app-card>
+  </ngx-masonry>
+</div>

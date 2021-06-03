@@ -1,0 +1,107 @@
+@import "src/sass/variables.scss";
+@mixin resetButton {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  background: transparent;
+  cursor: pointer;
+  @content;
+}
+
+@mixin createCircle($width, $border: null) {
+  width: $width;
+  height: $width;
+  @if $border == null {
+    border-radius: 50%;
+  } @else {
+    border-radius: $border;
+  }
+}
+
+@mixin centerContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin hover {
+  transition: transform 0.4s;
+  &:hover {
+    transform: scale(1.08);
+  }
+}
+@mixin hover-with-color($color) {
+  &:hover {
+    background-color: lighten($color: $color, $amount: 32);
+  }
+  cursor: pointer;
+  @content;
+}
+
+@mixin anulate-hover {
+  transition: none;
+  &:hover {
+    transform: none;
+  }
+}
+%text-mute {
+  font-size: 14px;
+  // font-style: italic;
+  opacity: 0.9;
+  font-weight: 400;
+}
+
+@mixin generateScroll($size: null, $color: null) {
+  $color-scroll: null;
+  @if $color == null {
+    $color-scroll: $secondary-color;
+  } @else {
+    $color-scroll: $color;
+  }
+  &::-webkit-scrollbar {
+    //general scroll bar
+    @if $size == null {
+      width: $default-size-scroll;
+    } @else {
+      width: $size;
+    }
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    //track es el pedacito que se mueve en el scroll
+    background: $white-color;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    //las esquinas del scroll bar
+    background: lighten($color: $color-scroll, $amount: 20);
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    cursor: pointer !important;
+
+    background: $color-scroll;
+  }
+}
+
+%reset_list {
+  list-style: none;
+}
+
+@mixin contain() {
+  .contain {
+    margin: 0 auto;
+    @content;
+  }
+}
+
+// reset
+
+@mixin resetSpaces {
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+}

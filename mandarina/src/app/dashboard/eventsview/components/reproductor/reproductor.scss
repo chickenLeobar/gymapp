@@ -1,0 +1,8 @@
+@import "src/sass/responsive";
+.player {
+  display: block;
+  min-width: 600px !important;
+  @include layout-bp(xs) {
+    min-width: 300px !important;
+  }
+}

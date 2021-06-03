@@ -1,0 +1,62 @@
+<div fxLayout="row" style="height: 100vh">
+  <div
+    fxFlex="40%"
+    fxFlex.lt-sm="100%"
+    style="height: 100vh"
+    class="contain_oauth_form"
+  >
+    <img width="300" src="assets/wellenesslogo.png" alt="" />
+    <h2 class="title text-uppercase">inciar sesión</h2>
+    <form nz-form [formGroup]="formLogin" class="oauth_form">
+      <nz-form-item>
+        <nz-form-control class="control_le" [nzSpan]="configAuth.widhtInput">
+          <nz-form-label nzFor="email"> Email </nz-form-label>
+          <input
+            type="text"
+            nz-input
+            formControlName="email"
+            placeholder="Ingrese su email"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control [nzSpan]="configAuth.widhtInput" class="control_le">
+          <nz-form-label nzFor="password"> Contraseña </nz-form-label>
+          <input
+            type="password"
+            nz-input
+            formControlName="password"
+            placeholder="Ingrese su contraseña"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <span class="changue_oauth">
+        <a href="" routerLink="/forgotpassword">Olvide mi contraseña</a>
+      </span>
+      <!-- login with social providers -->
+
+      <!-- <app-socialprovider (userEmit)="withSocialProvider($event)">
+      </app-socialprovider> -->
+
+      <button
+        nz-button
+        (click)="submitForm()"
+        nzType="primary"
+        routerlink="/dashboard"
+        class="button_le"
+      >
+        Ingresar
+      </button>
+      <span class="changue_oauth">
+        <a href="" routerLink="/register">No tengo una cuenta</a>
+      </span>
+    </form>
+  </div>
+  <!-- background image left -->
+  <div
+    fxFlex="60%"
+    fxHide.lt-sm="true"
+    [ngStyle]="stylesForBackground"
+    style="height: 100vh"
+  ></div>
+</div>

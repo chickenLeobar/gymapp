@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  width: var(--width);
+  height: var(--heigth);
+}
+vg-overlay-play .vg-overlay-play {
+  background: red !important;
+}
+.h1 {
+  color: black !important;
+  font-weight: bold !important;
+}
+
+.vg-overlay-play {
+  background-color: black !important;
+  background: black !important;
+  opacity: 1 !important;
+}

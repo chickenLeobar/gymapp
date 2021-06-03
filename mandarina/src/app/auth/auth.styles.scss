@@ -1,0 +1,42 @@
+%center {
+  display: flex;
+  justify-content: center;
+}
+:host {
+  // background-color: black;
+
+  .contain_oauth_form {
+    @extend %center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-block-start: 50px;
+  }
+  .oauth_form {
+    @extend %center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: calc(100% - 250px);
+  }
+}
+.contain_social_method {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  background-color: transparent;
+  .icons {
+    padding: 10px 0;
+    i {
+      font-size: 1.8rem;
+      margin: 0 1rem;
+    }
+  }
+}
+
+// link change login <-> register
+.changue_oauth {
+  margin: 10px 0;
+}

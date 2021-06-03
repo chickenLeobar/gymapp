@@ -1,0 +1,40 @@
+$backgound-color-list: white;
+$size-width-list: 700px;
+$width-image-space: 300px;
+$top-paddding-detail: 0px;
+:host {
+  display: block;
+  margin: 15px 0;
+}
+.item_sesion {
+  width: 750px;
+  .side_right {
+    span {
+      font-weight: 600;
+      font-style: italic;
+      font-size: 1.2rem;
+    }
+  }
+}
+.container_sesion_item {
+  background: $backgound-color-list;
+  .image {
+    overflow: hidden;
+    width: $width-image-space;
+    img {
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+  .detail {
+    padding-top: $top-paddding-detail;
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    .title {
+      margin: 5px 0;
+      padding: 0;
+    }
+  }
+}

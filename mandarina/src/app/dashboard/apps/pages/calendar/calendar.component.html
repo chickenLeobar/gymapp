@@ -1,0 +1,14 @@
+<nz-calendar
+  [(ngModel)]="date"
+  [(nzMode)]="mode"
+  (nzPanelChange)="panelChange($event)"
+  (nzSelectChange)="changueItem($event)"
+>
+  <ul *nzDateCell="let date">
+    <ng-container *ngIf="existSesion(date) !== null">
+      <app-cell-component [event]="existSesion(date)"> </app-cell-component>
+    </ng-container>
+  </ul>
+</nz-calendar>
+
+<ng-template #datacell> </ng-template>

@@ -1,0 +1,33 @@
+// customize inputs
+.input_le {
+  border: 1.9px solid $input-color-border;
+  border-radius: 7px;
+  padding: 7px 10px;
+}
+.control_le {
+  label {
+    font-family: $font-sans;
+    font-size: 0.85rem;
+    margin-left: 5px;
+    font-weight: 700;
+  }
+  input,
+  textarea {
+    @extend .input_le;
+  }
+}
+.control_form_le {
+  @extend .control_le;
+  label {
+    margin-left: 3px;
+    font-style: italic;
+  }
+}
+/* aplicated for ng design : override  default style for buttons*/
+.button_le {
+  padding: 18px 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

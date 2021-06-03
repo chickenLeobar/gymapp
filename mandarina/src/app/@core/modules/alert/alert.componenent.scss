@@ -1,0 +1,13 @@
+:host {
+  display: flex;
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-direction: column;
+  width: 80%;
+  position: fixed;
+  left: 10%;
+  nz-alert {
+    margin: 0px 0;
+    padding: 5px 20px;
+  }
+}

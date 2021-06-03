@@ -1,0 +1,133 @@
+<div fxLayout="row" style="height: 100vh">
+  <div
+    fxFlex="40%"
+    fxFlex.lt-sm="100%"
+    style="height: 100vh"
+    class="contain_oauth_form"
+    style="overflow-y: scroll"
+  >
+    <!-- <img width="150" src="assets/wellenesslogo.png" alt="" /> -->
+    <h2 class="title line_addon w-50 text-center">Registro</h2>
+    <form nz-form [formGroup]="registerForm" class="oauth_form">
+      <!-- name and lastName -->
+      <nz-form-item>
+        <nz-form-control
+          [nzSpan]="configAuth.widhtInput / 2"
+          class="control_le mr-2"
+          nzErrorTip="Este campo es requerido"
+        >
+          <nz-form-label nzFor="name"> Nombre</nz-form-label>
+          <input
+            type="text"
+            formControlName="name"
+            nz-input
+            placeholder="Name"
+          />
+        </nz-form-control>
+        <nz-form-control
+          [nzSpan]="configAuth.widhtInput"
+          nzErrorTip="Este campo es requerido"
+          class="control_le"
+        >
+          <nz-form-label nzFor="lastName"> Apellidos</nz-form-label>
+          <input
+            type="text"
+            formControlName="lastName"
+            nz-input
+            placeholder="Enter LastName"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control
+          class="control_le"
+          nzErrorTip="Este email no es valido"
+          [nzSpan]="configAuth.widhtInput"
+        >
+          <nz-form-label nzFor="email"> Email </nz-form-label>
+          <input
+            type="text"
+            formControlName="email"
+            nz-input
+            placeholder="Ingrese su email"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <!-- PHONE -->
+      <nz-form-item>
+        <nz-form-control [nzSpan]="configAuth.widhtInput" class="control_le">
+          <nz-form-label nzFor="phone"> Telefono</nz-form-label>
+          <input
+            type="tel"
+            formControlName="phone"
+            nz-input
+            placeholder="Enter phone"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <!-- sponsor -->
+      <nz-form-item *ngIf="!sponsor || sponsor.length == 0" class="control_le">
+        <nz-form-label>Codigo de invitación</nz-form-label>
+        <input
+          type="text"
+          formControlName="sponsor"
+          nz-input
+          placeholder="codigo de invitación"
+        />
+      </nz-form-item>
+      <!-- password -->
+      <nz-form-item>
+        <nz-form-control
+          [nzSpan]="configAuth.widhtInput"
+          [nzErrorTip]="errorPassword"
+          class="control_le"
+        >
+          <nz-form-label nzFor="password"> Contraseña </nz-form-label>
+          <input
+            type="password"
+            formControlName="password"
+            nz-input
+            placeholder="Ingrese su contraseña"
+          />
+        </nz-form-control>
+        <!-- validate password -->
+        <ng-template #errorPassword let-control>
+          <ng-container *ngIf="control.hasError('password')">
+            {{ control.getError("password") }}
+          </ng-container>
+        </ng-template>
+      </nz-form-item>
+      <!-- repeat password -->
+      <nz-form-item>
+        <nz-form-control [nzSpan]="configAuth.widhtInput" class="control_le">
+          <nz-form-label nzFor="password">Repetir Contraseña </nz-form-label>
+          <input
+            type="password"
+            formControlName="repeatPassword"
+            nz-input
+            placeholder="Ingrese su contraseña"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <!-- login with social providers -->
+      <!-- <app-socialprovider
+        (userEmit)="eventOfProvider($event)"
+        text="Registrate con una red social"
+      >
+      </app-socialprovider> -->
+      <span class="changue_oauth">
+        <a routerLink="/login">Ya tengo una cuenta</a>
+      </span>
+      <button nz-button nzType="primary" class="button_le" (click)="senForm()">
+        Registrarse
+      </button>
+    </form>
+  </div>
+  <!-- background image left -->
+  <div
+    fxFlex="60%"
+    fxHide.lt-sm="true"
+    [ngStyle]="stylesForBackground"
+    style="height: 100vh"
+  ></div>
+</div>

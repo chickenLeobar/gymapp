@@ -1,0 +1,82 @@
+<div class="contain">
+  <h2 class="title line_addon">Solicitudes</h2>
+  <nz-table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Creado</th>
+        <th>Descripción</th>
+        <th>Creditos</th>
+        <th>Estado</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of requestCredits">
+        <td>
+          {{ item.userName }}
+        </td>
+        <td>
+          {{ item.created | date: "short" }}
+        </td>
+        <td>
+          {{ item.description }}
+        </td>
+        <td>
+          {{ item.credits }}
+        </td>
+        <td>
+          <nz-badge
+            [nzStatus]="item.state == 'APPROVED' ? 'success' : 'processing'"
+          >
+            {{ item.state == "APPROVED" ? "aprobado" : "pendiente" }}
+          </nz-badge>
+        </td>
+        <td>
+          <button nz-button nzType="primary" (click)="openModal()">
+            <i nz-icon nzType="eye" nzTheme="outline"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<ng-template #modalCredits>
+  <nz-descriptions nzBordered>
+    <nz-descriptions-item nzTitle="Nombre" nzSpan="2">
+      {{ selectRequest.userName }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Apellido" nzSpan="2">
+      {{ selectRequest.lastName }}
+    </nz-descriptions-item>
+
+    <nz-descriptions-item nzTitle="Fecha" nzSpan="3">
+      {{ selectRequest.created | date: "short" }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="Estado" nzSpan="3">
+      <nz-badge
+        [nzStatus]="
+          selectRequest.state == 'APPROVED' ? 'success' : 'processing'
+        "
+      >
+        {{ selectRequest.state == "APPROVED" ? "aprobado" : "pendiente" }}
+      </nz-badge>
+    </nz-descriptions-item>
+  </nz-descriptions>
+  <nz-form-item class="my-4" [hidden]="isAproved">
+    <nz-form-label> Creditos </nz-form-label>
+    <nz-form-control>
+      <nz-input-number
+        [(ngModel)]="creditsRequest"
+        [nzMin]="0"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-space class="my-3">
+    <nz-space-item>
+      <button nz-button nzType="primary" (click)="openChatWithUser()">
+        chat
+      </button>
+    </nz-space-item>
+  </nz-space>
+</ng-template>

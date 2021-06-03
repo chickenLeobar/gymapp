@@ -1,0 +1,27 @@
+:host {
+  display: block;
+  ::ng-deep {
+    .bars {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      a i {
+        padding-top: 20px;
+        font-size: 25px;
+      }
+    }
+  }
+}
+
+:host ::ng-deep .ant-comment-content-author-name {
+  color: black;
+  font-size: 15px;
+}
+:host ::ng-deep .ant-comment-content-author-time {
+  color: black;
+  opacity: 0.5;
+  font-size: 13px;
+}
+:host ::ng-deep .ant-comment {
+  padding: 15px 0;
+}

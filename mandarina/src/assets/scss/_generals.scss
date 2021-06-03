@@ -1,0 +1,79 @@
+@import "src/sass/variables";
+@import "src/sass/responsive";
+.paragraph {
+  font-size: 16px;
+  font-weight: 300;
+}
+.paragraph.normal {
+  font-weight: 500;
+  opacity: 1;
+  color: rgba($color: black, $alpha: 0.9);
+}
+.window_dashboard {
+  max-width: 900px;
+  width: 900px;
+}
+.testbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+}
+.text-mute {
+  font-size: 0.8rem;
+  color: black;
+  opacity: 0.8;
+}
+
+.hide {
+  display: none;
+}
+.show {
+  display: initial;
+}
+/*my tittles*/
+
+.title {
+  font-family: $font-sans;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 35px;
+  &.line_addon {
+    position: relative;
+    &::after {
+      position: absolute;
+      content: "";
+      height: 6px;
+      width: 95%;
+      left: 0;
+      bottom: -10px;
+      background-color: $secondary-color;
+    }
+  }
+
+  @include layout-bp(xs) {
+    font-size: 1.2rem;
+  }
+  .btn_back {
+    border: none;
+    outline: none;
+    background-color: $secondary-color;
+    color: $white-color;
+    cursor: pointer;
+  }
+}
+
+/*=============================================
+=            subtitles            =
+=============================================*/
+
+.subtitle {
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 5px 0 default;
+}
+
+.icon_sidebar {
+  font-size: 18px;
+  opacity: 0.8;
+}

@@ -1,0 +1,13 @@
+<button class="chat_button" cdkOverlayOrigin #originOverlay="cdkOverlayOrigin">
+  <i class="fas fa-comment-alt"></i>
+</button>
+<app-overlay
+  ($open)="openEvent()"
+  ($close)="closeEvent()"
+  fixedOverlay
+  [isOpen]="open"
+  [origin]="originOverlay"
+  [position]="positionChat"
+>
+  <ng-template [cdkPortalOutlet]="portal"></ng-template>
+</app-overlay>

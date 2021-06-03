@@ -1,0 +1,214 @@
+<!--  upload -->
+<ng-template #uploadTemplate>
+  <nz-upload
+    nzAccept="image/x-png,image/gif,image/jpeg"
+    class="event-uploader"
+    [nzCustomRequest]="actionServer"
+    nzName="avatar"
+    nzListType="picture-card"
+    [nzShowUploadList]="false"
+  >
+    <ng-container *ngIf="!previewImage">
+      <div class="upload_placeholder">
+        <i class="fas fa-upload"></i>
+        <span>Imagén del {{ config.action }}</span>
+      </div>
+    </ng-container>
+    <img
+      *ngIf="previewImage"
+      class="img_reponsive"
+      [src]="previewImage"
+      alt=""
+      style="width: 100%"
+    />
+  </nz-upload>
+</ng-template>
+
+<!-- event details -->
+
+<ng-template #eventDetailsTemplate>
+  <h1 class="title line_addon">Detalles del {{ config.action }}</h1>
+  <!-- logic video-->
+  <nz-card
+    *ngIf="videosrc && configForm.get('includeVideo').value"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  >
+    <h3 class="subtitle text-center">video presentación</h3>
+    <app-videoplayer [src]="videosrc"> </app-videoplayer>
+  </nz-card>
+
+  <form [formGroup]="eventForm">
+    <nz-form-item>
+      <nz-form-control class="control_form_le">
+        <nz-form-label>Titulo </nz-form-label>
+        <input
+          type="text"
+          formControlName="title"
+          nz-input
+          [placeholder]="'Titulo del ' + config.action"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <!-- categorie and autocomplete -->
+    <nz-form-item>
+      <nz-form-control class="control_form_le" [nzErrorTip]="errorCategorie">
+        <nz-form-label>Categoria </nz-form-label>
+        <input
+          formControlName="categorie"
+          placeholder="Escoja su categoria"
+          nz-input
+          [nzAutocomplete]="auto"
+        />
+        <nz-autocomplete nzBackfill #auto>
+          <nz-auto-option
+            [nzLabel]="item.name"
+            *ngFor="let item of categories"
+            [nzValue]="item.id"
+          >
+            {{ item.name }}
+          </nz-auto-option>
+        </nz-autocomplete>
+        <ng-template #errorCategorie let-control>
+          <ng-container *ngIf="control.errors['required']">
+            Este campo es obligatorio
+          </ng-container>
+
+          <ng-container *ngIf="control.hasError('notFoundInArray')">
+            {{ control.getError("notFoundInArray") }}
+          </ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <!-- cost credits -->
+    <nz-form-item>
+      <div fxLayout="row" class="w-100">
+        <span fxFlex="70%" class="subtitle font-weight-bold font-italic"
+          >creditos</span
+        >
+        <nz-input-number
+          formControlName="credits"
+          fxFlex="30%"
+          [nzStep]="1"
+          [nzMin]="0"
+        ></nz-input-number>
+      </div>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-control class="control_form_le">
+        <nz-form-label class="">Descripción</nz-form-label>
+        <textarea
+          style="width: 100%"
+          nz-input
+          formControlName="description"
+          [nzAutosize]="{ minRows: 5, maxRows: 5 }"
+        ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</ng-template>
+<!-- config event -->
+<ng-template #configEventTemplate>
+  <h1 class="title line_addon">Configuración del {{ config.action }}</h1>
+  <nz-card>
+    <!-- configura si los eventos pueden ser mostrados -->
+    <div class="my-3" fxLayout="row" fxLayoutGap="50px">
+      <span fxFlex="calc(100% - 80px)"> Incluir comentarios </span>
+      <nz-switch
+        [formControl]="configForm.get('includeComment')"
+        fxFlex="80px"
+        fxFlexAlign="end"
+      ></nz-switch>
+    </div>
+    <!-- configurar si el evento incluye un video -->
+    <div class="my-3" fxLayout="row" fxLayoutGap="50px">
+      <span fxFlex="calc(100% - 80px)"> Incluir video </span>
+      <nz-switch
+        [formControl]="configForm.get('includeVideo')"
+        fxFlex="80px"
+        fxFlexAlign="end"
+      ></nz-switch>
+    </div>
+    <!--  uplod video component -->
+    <ng-container *ngIf="configForm.get('includeVideo').value">
+      <app-video-uplod (fileEmitter)="selectVideo($event)"> </app-video-uplod>
+    </ng-container>
+    <!-- controla si el evento se programa o no -->
+    <div class="my-3" fxLayout="row" fxLayoutGap="50px">
+      <app-checkbox
+        [formControl]="configForm.get('optionPublished')"
+      ></app-checkbox>
+    </div>
+
+    <!-- programa cuandoe esta visible el evento -->
+    <ng-container *ngIf="configForm.get('optionPublished').value == 2">
+      <div fxLayout="column">
+        <span class="subtitle"> fecha </span>
+        <nz-date-picker [formControl]="configForm.get('programDate')">
+        </nz-date-picker>
+      </div>
+
+      <div fxLayout="column">
+        <span class="subtitle"> Hora </span>
+        <nz-time-picker
+          [formControl]="configForm.get('programTime')"
+        ></nz-time-picker>
+      </div>
+    </ng-container>
+
+    <!-- boton para preparar sesiones -->
+    <button
+      nz-button
+      class="my-4 button_le"
+      (click)="actionEvent()"
+      nzType="primary"
+    >
+      {{
+        editMode ? "actualizar " + config.action : "guardar " + config.action
+      }}
+    </button>
+
+    <button
+      nz-button
+      *ngIf="editMode"
+      class="my-3 button_le my-2"
+      (click)="navigateSesions()"
+      nzType="primary"
+    >
+      ver sesiones
+    </button>
+  </nz-card>
+</ng-template>
+
+<!-- layout -->
+<div
+  class="contain"
+  gdAreas="upload upload upload  | form form config | form form config "
+  gdColumn="3"
+  gdRow="3"
+  gdGap="20px"
+>
+  <!-- upload -->
+  <div gdArea="upload">
+    <ng-container *ngTemplateOutlet="uploadTemplate"></ng-container>
+  </div>
+  <div gdArea="form">
+    <ng-container *ngTemplateOutlet="eventDetailsTemplate"></ng-container>
+  </div>
+  <div gdArea="config">
+    <ng-container *ngTemplateOutlet="configEventTemplate"></ng-container>
+  </div>
+</div>
+
+<ngx-spinner
+  bdColor="rgba(12,239,25,0.8)"
+  size="medium"
+  color="#fff"
+  type="square-spin"
+  [fullScreen]="true"
+  ><p style="color: white">
+    {{ messageSpinner }}
+    <nz-progress *ngIf="percentVideo != -1" [nzPercent]="percentVideo">
+    </nz-progress></p
+></ngx-spinner>

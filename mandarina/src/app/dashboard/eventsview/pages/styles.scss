@@ -1,0 +1,71 @@
+@import "src/sass/variables";
+@import "src/sass/mixins";
+@import "src/sass/responsive";
+.display {
+  width: 100%;
+}
+.singleEvent {
+  display: flex;
+}
+
+.media {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &__image {
+    width: 90%;
+    width: 10%;
+    object-fit: cover;
+    object-position: center center;
+  }
+}
+
+.media-card {
+  @include resetSpaces();
+}
+
+.description {
+  width: 100%;
+}
+.information {
+  padding: 15px 0;
+  width: 100%;
+  .box {
+    width: 100%;
+    .item {
+      margin: 0 15px;
+      float: left;
+      font-size: 1rem;
+
+      th::after {
+        content: ":";
+        padding-right: 10px;
+      }
+      &.right {
+        float: right;
+      }
+    }
+  }
+}
+
+.sesions {
+  width: 80% !important;
+}
+.sesion {
+  margin: 10px 15px;
+  min-width: 400px;
+}
+
+@include contain() {
+  @include layout-bp(gt-sm) {
+    width: 800px;
+  }
+  @include layout-bp(md) {
+    width: 600px;
+  }
+  @include layout-bp(xs) {
+    width: 100% !important;
+    overflow: hidden;
+  }
+}

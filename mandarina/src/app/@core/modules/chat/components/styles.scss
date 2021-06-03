@@ -1,0 +1,292 @@
+@import "src/sass/mixins.scss";
+@import "src/sass/variables.scss";
+@import "src/sass/responsive";
+:host {
+  display: block;
+}
+@mixin chat-card-avatar {
+  .chat_card_avatar {
+    overflow: visible;
+    margin: $chat-card-avatar-margin;
+    position: relative;
+    box-shadow: 0px 0px 20px -8px rgba(0, 0, 0, 0.5);
+    @include createCircle($width-avatar);
+    @include centerContent();
+    cursor: pointer;
+    &.active {
+      position: relative;
+      &::after {
+        position: absolute;
+        content: "";
+        @include createCircle(15px);
+        bottom: 3px;
+        right: 0px;
+        border: 2px solid $white-color;
+        background-color: $base-color-chat;
+      }
+    }
+    .img {
+      width: 100%;
+      position: absolute;
+      object-fit: cover;
+      @include createCircle($width-avatar - 12px);
+      @include centerContent;
+      &.not_image {
+        color: $white-color;
+        background-color: $base-color-chat;
+      }
+      @include layout-bp(xs) {
+        @include createCircle($width-avatar - 20px);
+      }
+    }
+    &_user {
+      position: absolute;
+      bottom: -25px;
+      @extend %text-mute;
+    }
+    &_badge {
+      position: absolute;
+      @include createCircle(28px);
+      @include centerContent();
+      color: white;
+      background-color: $base-color-chat;
+      top: -7px;
+      right: -7px;
+      z-index: 5;
+      border: 2px solid $white-color;
+      &_text {
+        font-size: 0.3rem;
+      }
+    }
+    @include layout-bp(xs) {
+      @include createCircle($width-avatar - 10px);
+    }
+    @include hover;
+  }
+}
+
+@mixin list-chat {
+  .list_chats {
+    height: 250px;
+    width: 100%;
+    @include generateScroll();
+    margin: 10px 0;
+    &_item {
+      display: grid;
+      text-align: left;
+      grid-template-columns: 80px 65% 10%;
+      grid-template-rows: 1;
+      padding: 0 !important;
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      margin: $margin-item-chat;
+      padding: 10px 5px !important;
+      place-content: end start;
+      @include hover-with-color($secondary-color) {
+        border-radius: 10px;
+      }
+      .chat_card_avatar {
+        @include anulate-hover;
+        justify-self: center;
+        &_badge_text {
+          font-size: 0.7rem;
+        }
+      }
+      &_text {
+        width: 100%;
+        text-align: left;
+        margin-top: 10px;
+        justify-self: center;
+        h3 {
+          font-size: 0.85rem;
+          margin: 0;
+          padding: 0;
+        }
+        p {
+          font-size: 0.75rem;
+        }
+      }
+      &_actions {
+        justify-self: end;
+        span {
+          @extend %text-mute;
+        }
+      }
+    }
+  }
+}
+
+@mixin search-component {
+  .chat-card-search {
+    mat-form-field.mat-form-field {
+      width: 100%;
+      mat-icon {
+        color: $color-search;
+      }
+    }
+  }
+}
+
+@mixin list-avatars {
+  .list_avatars {
+    margin-top: 0.5rem;
+    width: 85%;
+  }
+}
+@mixin subtitle {
+  .subtitle {
+    opacity: 1;
+    font-style: italic;
+  }
+}
+
+@mixin button_reverse {
+  &_button_reverse {
+    @include resetButton();
+    color: $white-color;
+    margin: 0 10px;
+    border-radius: 8px;
+    background: $base-color-chat;
+    padding: 5px;
+  }
+}
+
+@mixin list_messages {
+  @include button_reverse();
+  &_list_conversation {
+    width: 100%;
+    @include generateScroll(5px);
+    height: $size-height-container-chat - 200px;
+    @extend %reset_list;
+    margin: 0;
+    // mobile container
+    @include layout-bp(xs) {
+      height: $size-height-container-chat - 300px;
+    }
+
+    &_item {
+      display: grid;
+      grid-template-columns: 23% 60%;
+      &.reverse {
+        width: 100%;
+        display: flex;
+        padding: 10px 0;
+        justify-content: flex-end;
+        .context {
+          text-align: right;
+          margin-left: 50px;
+          p {
+            width: 100%;
+            background-color: $base-color-chat;
+            color: $white-color;
+          }
+          span {
+            text-align: right;
+          }
+        }
+      }
+      width: 100%;
+      .avatar {
+        align-self: end;
+        transform: scale(0.9);
+      }
+      .context {
+        padding: 0 !important;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-end;
+        .subtitle {
+          font-size: 0.9rem;
+          margin: 0;
+          padding: 0;
+        }
+        // body message
+        p {
+          width: 100%;
+          font-size: 0.9rem;
+          background-color: $remitent-bg-container;
+          padding: 10px 9px;
+          border-radius: 10px;
+          margin: 0 !important;
+        }
+        // text mute
+        span {
+          width: 100%;
+          text-align: end;
+          margin: 0;
+          padding: 0;
+          font-style: italic;
+          @extend %text-mute;
+        }
+      }
+    }
+  }
+}
+
+@mixin form_send {
+  &_form {
+    margin-top: 10px;
+    padding-top: 12px;
+    border-top: 2px solid $base-color-chat;
+    .input {
+      max-height: 50px;
+      display: grid;
+      grid-template-columns: 90% 10%;
+      .box {
+        max-height: 40px;
+        @include generateScroll(2px, $black-color);
+      }
+      .send_button {
+        @include resetButton();
+        i {
+          color: $base-color-chat;
+          font-size: 1.5rem;
+        }
+      }
+    }
+    &_actions {
+      button {
+        @include resetButton();
+        i {
+          color: $opacity-default;
+          font-size: 1.5rem;
+        }
+        &:hover {
+          i {
+            color: $black-color;
+          }
+        }
+      }
+    }
+  }
+}
+.chat-card {
+  width: 380px;
+  height: $size-height-container-chat;
+  font-size: $base-size-font;
+  border-radius: 25px;
+  background-color: $chat-color-container;
+  padding: $padding-container-chat;
+  font-size: 16px;
+  @include subtitle();
+  @include list-avatars();
+  @include search-component();
+  @include chat-card-avatar();
+  @include list-chat();
+  @include list_messages();
+  @include form_send();
+
+  /*=============================================
+  =            mobile            =
+  =============================================*/
+
+  @include layout-bp(xs) {
+    font-size: $base-size-font - 2px;
+    width: 310px;
+    height: $size-height-container-chat - 100px;
+    transform: scale(0.9);
+  }
+}

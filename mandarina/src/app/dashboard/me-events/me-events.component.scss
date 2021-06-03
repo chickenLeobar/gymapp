@@ -1,0 +1,12 @@
+@import "src/sass/responsive";
+@import "src/sass/mixins";
+
+@include contain {
+  width: 800px;
+  @include mq(lg) {
+    width: 700px;
+  }
+  @include mq(md) {
+    width: 600px;
+  }
+}

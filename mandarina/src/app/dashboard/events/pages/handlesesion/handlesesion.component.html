@@ -1,0 +1,214 @@
+<!--  upload -->
+<ng-template #uploadTemplate>
+  <nz-upload
+    class="event-uploader"
+    nzName="avatar"
+    [nzCustomRequest]="actionServer"
+    nzListType="picture-card"
+    [nzShowUploadList]="false"
+  >
+    <ng-container *ngIf="!isValidValueImage">
+      <div class="upload_placeholder">
+        <i class="fas fa-upload"></i>
+        <span>imagen de la sesión</span>
+      </div>
+    </ng-container>
+    <img *ngIf="isValidValueImage" [src]="previewImage" style="width: 100%" />
+  </nz-upload>
+</ng-template>
+
+<!-- event details -->
+<ng-template #eventDetailsTemplate>
+  <h1 class="title line_addon">Detalles de la sesión</h1>
+  <!-- video player -->
+  <nz-card
+    *ngIf="getIncludeVideo"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  >
+    <h3 class="title text-center">video presentación</h3>
+    <ng-container>
+      <media [source]="videosrc" style="width: 350px"></media>
+    </ng-container>
+  </nz-card>
+
+  <form action="" [formGroup]="formSesion">
+    <!-- title -->
+    <nz-form-item>
+      <nz-form-control class="control_form_le">
+        <nz-form-label>Titulo </nz-form-label>
+        <input
+          type="text"
+          nz-input
+          formControlName="nameSesion"
+          placeholder="Titulo del evento"
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <!-- fecha -->
+    <nz-form-item *ngIf="!isProgram" fxLayout="row" fxLayoutGap="10px">
+      <nz-form-control fxFlex="45%" class="">
+        <nz-form-label class="subtitle" style="font-style: italic"
+          >Fecha</nz-form-label
+        >
+        <nz-date-picker
+          formControlName="startDateSesion"
+          class="w-100"
+        ></nz-date-picker>
+      </nz-form-control>
+      <!--  time -->
+      <nz-form-control fxFlex="45%" class="">
+        <nz-form-label class="subtitle" style="font-style: italic"
+          >Hora</nz-form-label
+        >
+        <nz-time-picker
+          formControlName="startTimeSesion"
+          class="w-100"
+        ></nz-time-picker>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!--  dependendens on include video :  -->
+    <ng-container *ngIf="!getIncludeVideo && !isProgram">
+      <!-- url de la sesion -->
+      <nz-form-item>
+        <nz-form-control
+          class="control_form_le"
+          [nzErrorTip]="'No se reconoce el formato url'"
+        >
+          <nz-form-label>Link de la sesión </nz-form-label>
+          <input
+            type="url"
+            nz-input
+            placeholder="link de la sesión"
+            formControlName="linkRoom"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <!--  time duration -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label class="subtitle">
+            Tiempo de duración (estimado en horas)
+          </nz-form-label>
+          <nz-slider formControlName="duration" [nzMax]="15"> </nz-slider>
+        </nz-form-control>
+      </nz-form-item>
+    </ng-container>
+
+    <!-- descripcion -->
+    <nz-form-item>
+      <nz-form-control class="control_form_le">
+        <nz-form-label class="">Descripción</nz-form-label>
+        <textarea
+          style="width: 100%"
+          nz-input
+          formControlName="description"
+          [nzAutosize]="{ minRows: 5, maxRows: 15 }"
+        ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+    <div fxLayout="row" fxFlexAlign="end" class="w-100">
+      <button
+        *ngIf="editMode"
+        nz-button
+        nzType="primary"
+        class="button_le ml-2"
+        (click)="newSesion()"
+      >
+        Nueva sesión
+      </button>
+      <button
+        fxFlex="35%"
+        nz-button
+        nzDanger
+        nzType="primary"
+        class="button_le ml-2"
+        (click)="actionsSesion()"
+      >
+        {{ editMode ? "Actualizar" : "Guardar" }}
+      </button>
+    </div>
+  </form>
+</ng-template>
+
+<!-- config event -->
+
+<ng-template #configEventTemplate>
+  <!-- config for sesion -->
+  <h1 class="title line_addon">Configuración</h1>
+  <nz-space nzDirection="vertical" style="min-width: 320px">
+    <nz-space-item>
+      <nz-card>
+        <form [formGroup]="formConfigSesion">
+          <!-- inlude video option -->
+          <div class="my-3" fxLayout="row" fxLayoutGap="50px">
+            <span fxFlex="calc(100% - 80px)"> Incluir video </span>
+            <nz-switch
+              formControlName="includeVideo"
+              fxFlex="80px"
+              fxFlexAlign="end"
+            ></nz-switch>
+          </div>
+          <!-- result config video -->
+          <!--  uplod video component -->
+          <ng-container *ngIf="formConfigSesion.get('includeVideo').value">
+            <app-video-uplod (fileEmitter)="selectVideo($event)">
+            </app-video-uplod>
+          </ng-container>
+          <!-- include comments -->
+          <div class="my-3" fxLayout="row" fxLayoutGap="50px">
+            <span fxFlex="calc(100% - 80px)"> Incluir Comentarios </span>
+            <nz-switch
+              formControlName="includeComments"
+              fxFlex="80px"
+              fxFlexAlign="end"
+            ></nz-switch>
+          </div>
+        </form>
+      </nz-card>
+    </nz-space-item>
+    <nz-space-item>
+      <app-list-sesions
+        [callBackDelete]="deleteSesion"
+        (clickSesionEvent)="actionClickSesion($event)"
+        [sesions]="sesions"
+      >
+      </app-list-sesions>
+    </nz-space-item>
+  </nz-space>
+</ng-template>
+
+<!-- layout -->
+<div
+  class="contain"
+  gdAreas="upload upload upload  | form form config | form form config "
+  gdColumn="3"
+  gdRow="3"
+  gdGap="20px"
+  *ngIf="currentEvent"
+>
+  <!-- upload -->
+  <div gdArea="upload">
+    <le-title text="Volver" leBack></le-title>
+    <ng-container *ngTemplateOutlet="uploadTemplate"></ng-container>
+  </div>
+  <div gdArea="form">
+    <ng-container *ngTemplateOutlet="eventDetailsTemplate"></ng-container>
+  </div>
+  <div gdArea="config">
+    <ng-container *ngTemplateOutlet="configEventTemplate"></ng-container>
+  </div>
+</div>
+
+<ngx-spinner
+  bdColor="rgba(12,239,25,0.8)"
+  size="medium"
+  color="#fff"
+  type="square-spin"
+  [fullScreen]="true"
+  ><p style="color: white">
+    {{ messageSpinner }}
+    <nz-progress *ngIf="percentVideo != -1" [nzPercent]="percentVideo">
+    </nz-progress></p
+></ngx-spinner>

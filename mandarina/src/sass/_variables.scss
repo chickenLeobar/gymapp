@@ -1,0 +1,41 @@
+$secondary-color: #4849ff;
+$black-color: #000000;
+// scroll
+$default-size-scroll: 5px;
+
+// chat variabels
+
+$size-height-container-chat: 630px;
+$opacity-default: rgba($black-color, 0.6);
+$chat-color-container: #ffffff;
+$base-size-font: 16px;
+$base-color-chat: $secondary-color;
+$white-color: #ffffff;
+$icon-color-chat: $white-color;
+$button-color-chat: $base-color-chat;
+$size-icon-chat: 28px;
+// search button
+$color-search: $button-color-chat;
+$padding-container-chat: 15px;
+$width-avatar: 60px;
+$chat-card-avatar-margin: 10px 20px 35px 15px;
+
+// item chat
+
+$margin-item-chat: 10px 0;
+
+// conversation chat
+$remitent-bg-container: #f8f4f4;
+
+// dasboard
+//\app\dashboard\ctrlusers\modals\user-modal
+
+/* Comments variables */
+
+// size width comments
+
+$width-size-comment: 720px;
+$width-size-reply: $width-size-comment - 65px;
+
+// layout
+$default-width-layout: 700px;

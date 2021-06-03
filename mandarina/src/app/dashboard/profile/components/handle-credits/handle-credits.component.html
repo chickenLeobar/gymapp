@@ -1,0 +1,91 @@
+<!-- modal -->
+<nz-modal
+  [nzVisible]="showModalRequest"
+  nzTitle="Solicitar creditos"
+  nzOkText="Solicitar"
+  (nzOnOk)="sendRequest()"
+  (nzOnCancel)="showModalRequest = false"
+>
+  <div *nzModalContent>
+    <form nz-form [formGroup]="formRequest" nzLayout="horizontal">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label> Cantidad de creditos </nz-form-label>
+          <nz-input-number formControlName="credits"> </nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</nz-modal>
+<nz-tabset nzSize="large" [nzTabPosition]="postionTap">
+  <nz-tab nzTitle="Peticiones">
+    <!-- information -->
+    <div class="my-4">
+      <h3 class="title line_addon">Información</h3>
+      <!-- information about credits -->
+      <nz-descriptions nzBordered class="my-4">
+        <nz-descriptions-item nzTitle="Creditos Actuales">
+          {{ currentUser?.credit.currentCredits }}
+        </nz-descriptions-item>
+      </nz-descriptions>
+      <button nz-button nzType="primary" (click)="showModalRequest = true">
+        Solicitar creditos
+      </button>
+    </div>
+    <h3 class="title line_addon">Petición de creditos</h3>
+    <!-- list requests -->
+    <nz-table #tableRequest [nzData]="requestCredits | async">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Emisión</th>
+          <th>Creditos</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of tableRequest.data">
+          <td>
+            {{ item.id }}
+          </td>
+          <td>
+            {{ item.created | date: "short" }}
+          </td>
+          <td>
+            {{ item.credits }}
+          </td>
+          <td>
+            {{ item.state | requestState }}
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-tab>
+  <nz-tab nzTitle="Movimientos">
+    <div class="w-100">
+      <h3 class="title line_addon">Moviento de creditos</h3>
+      <nz-table #table [nzData]="historial | async">
+        <thead>
+          <tr>
+            <th>Descripción</th>
+            <th>Emitido</th>
+            <th>Creditos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of table.data">
+            <td>
+              {{ item.reason }}
+            </td>
+            <td>
+              {{ item.emit | date: "short" }}
+            </td>
+            <td>
+              {{ item.credits }}
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+  </nz-tab>
+</nz-tabset>

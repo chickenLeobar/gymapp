@@ -1,0 +1,43 @@
+<nz-badge [nzCount]="coutNotifications" class="button_nav">
+  <a
+    (nzVisibleChange)="openNotification($event)"
+    nz-dropdown
+    [nzDropdownMenu]="dropdownNotification"
+    [nzPlacement]="'bottomCenter'"
+  >
+    <i class="far fa-bell"></i>
+  </a>
+</nz-badge>
+<nz-badge class="button_nav">
+  <a
+    nz-dropdown
+    [nzDropdownMenu]="dropdownAvatar"
+    [nzPlacement]="'bottomCenter'"
+  >
+    <nz-avatar nzIcon="user" style="background-color: blue"> </nz-avatar>
+  </a>
+</nz-badge>
+<nz-dropdown-menu #dropdownNotification>
+  <app-notifications
+    (onReadNotifications)="readNotification = $event"
+    (sizeList)="coutNotifications = $event"
+  ></app-notifications>
+</nz-dropdown-menu>
+<nz-dropdown-menu #dropdownAvatar>
+  <nz-card class="menu_user">
+    <ul>
+      <a (click)="actionMenuPerfil('PROFILE')" class="item">
+        <i class="far fa-user-circle"></i>
+        <span>Perfil</span>
+      </a>
+      <a (click)="actionMenuPerfil('REFERREAL')" class="item">
+        <i class="fas fa-user-plus"></i>
+        <span>Referidos</span>
+      </a>
+      <a (click)="actionMenuPerfil('LOGOUT')" class="item">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Cerrar Sesión</span>
+      </a>
+    </ul>
+  </nz-card>
+</nz-dropdown-menu>

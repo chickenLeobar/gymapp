@@ -1,0 +1,22 @@
+<nz-card [nzTitle]="titlecard">
+  <nz-list>
+    <nz-list-item
+      nzItemLayout="horizontal"
+      class="item_list"
+      *ngFor="let sesion of sesions"
+    >
+      <nz-list-item-meta-title>
+        {{ sesion.nameSesion }}
+      </nz-list-item-meta-title>
+      <nz-list-item-extra id="menu">
+        <mat-icon nz-dropdown [nzDropdownMenu]="menu"> more_vert </mat-icon>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item (click)="selectItem(sesion.id)">Editar</li>
+            <li nz-menu-item (click)="deleteSesion(sesion.id)">Eliminar</li>
+          </ul>
+        </nz-dropdown-menu>
+      </nz-list-item-extra>
+    </nz-list-item>
+  </nz-list>
+</nz-card>
