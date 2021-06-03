@@ -1,8 +1,8 @@
-<div/ align="center">
-
+<div align="center">
 <h1> 
  GYMAPP
 </h1>
+<p>app for every gyms :) 👍</p>
 <div>
 
 # GUIDE
