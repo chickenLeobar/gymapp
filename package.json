@@ -9,10 +9,10 @@
             "mandarina",
             "manzana",
             "packages/*"
-        ],
-        "nohoist": [
-            "**"
         ]
+    },
+    "installConfig": {
+        "hoistingLimits": "dependencies"
     },
     "scripts": {
         "postinstall": "preconstruct dev && manypkg check",
