@@ -7,15 +7,9 @@ export class UserController extends AbstractRepository<User> {
   constructor() {
     super();
   }
-  /**
-   * - Email existe ? verifico provider ? verifico contraseña
-   * -  Email  no exist e  ?  registro  user  con el provider
-   * - Email existe pero el provider no coincide  ? genera un error y le digp que debe ingresar con su provider
-   * -  *
-   */
 
-  verifyUser(email: string, provider: EProvider) {
-    const user = this.repository.findOne({ email, provider });
+  async verifyUser(email: string, provider: EProvider) {
+    const user = await this.repository.findOne({ email, provider });
     if (user) {
       return "REGISTER";
     }
