@@ -1,3 +1,6 @@
+import { BootstrapComment } from "./../../modules/comments/entitites/BootrapComment";
+import { EventService } from "./../services/Events.service";
+import { EventState } from "./../../enums/Event.enums";
 import { EntityManager, FindManyOptions } from "typeorm";
 import { RolService } from "./../../utils/rol.uti";
 import { User } from "./../../entity/User";
@@ -34,20 +37,30 @@ import { Upload } from "../user/UserResolver";
 import { CurrentUser } from "../../decorators/params/currentUser";
 import { Service } from "typedi";
 import { InjectManager } from "typeorm-typedi-extensions";
+import { In } from "typeorm";
+import { isEqual } from "date-fns";
 @Resolver((type) => Event)
 @Service()
 export class EventResolver {
   constructor(
     private rolService: RolService,
-    @InjectManager() private manager: EntityManager
+    @InjectManager() private manager: EntityManager,
+    private eventService: EventService
   ) {}
 
   @Mutation((type) => EventResponse)
   @Authorized(ERol.ADMIN, ERol.CREATOR)
   async createEvent(@Arg("event") event: InputEvent): Promise<EventResponse> {
     const ev = Event.create(event);
+    if (ev.includeComments) {
+      const cb = await BootstrapComment.create().save();
+
+      ev.id_comment = cb.id;
+    }
     let eventBD: Event = await ev.save();
+
     eventBD = (await Event.findOne({ id: eventBD.id })) as any;
+
     return { resp: true, event: eventBD };
   }
 
@@ -161,11 +174,30 @@ export class EventResolver {
   async getEvents(@CurrentUser() user: Promise<User>) {
     const userBd = await user;
     let findOptions = {} as FindManyOptions<Event>;
+
     findOptions.order = { createEvent: "DESC" };
+
+    findOptions.where = {
+      published: In([EventState.PROGRAM, EventState.PUBLIC]),
+    };
+
     const isAdmin = this.rolService.isRol(ERol.ADMIN, userBd.rol);
-    if (!isAdmin) {
-      findOptions.where = { id: userBd.id };
-    }
-    return await Event.find(findOptions);
+    const events = await Event.find(findOptions);
+    return events.filter((event) => {
+      if (event.published == EventState.PUBLIC) {
+        return true;
+      } else {
+        if (isEqual(event.publishedDate, Date.now())) {
+          // id ,
+          this.eventService.changueStateEvent({
+            id: event.id,
+          });
+          // changue estate -> published
+          return true;
+        } else {
+          return false;
+        }
+      }
+    });
   }
 }

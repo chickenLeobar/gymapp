@@ -11,7 +11,7 @@
     <ng-container *ngIf="!user?.image">
       <div class="upload_placeholder">
         <i class="far fa-grin"></i>
-        <span>Foto de Perfil</span>
+        <!-- <img src="assets/img/no_image.png" alt="" /> -->
       </div>
     </ng-container>
     <img
@@ -40,8 +40,8 @@
       <td *ngIf="edit">
         <input
           type="text"
+          nz-input
           [(ngModel)]="user.name"
-          class="input_for_Edit"
           value="{{ user.name }}"
         />
       </td>
@@ -55,7 +55,7 @@
         <input
           [(ngModel)]="user.lastName"
           type="text"
-          class="input_for_Edit"
+          nz-input
           value="{{ user.lastName }}"
         />
       </td>
@@ -68,9 +68,10 @@
       </td>
       <td *ngIf="edit">
         <input
+          [disabled]="emailDisable"
           [(ngModel)]="user.email"
           type="text"
-          class="input_for_Edit"
+          nz-input
           value="{{ user.email }}"
         />
       </td>

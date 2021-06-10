@@ -56,18 +56,23 @@
   display: flex;
   width: 100%;
   height: 100%;
+  background: rgba($color: black, $alpha: 0.8);
+  padding: 10px;
   @include centerContent();
-  background-color: lighten($color: $secondary-color, $amount: 25);
+  i {
+    color: $white-color;
+  }
   i {
     font-size: 50px;
-    padding: 1rem;
+    padding: 2rem;
   }
 }
 .avatar-uploader {
   @include centerContent();
 }
 .contain {
-  width: 800px;
+  width: 900px;
+  display: block;
   @include mq(md) {
     width: 600px !important;
     padding: 20px;

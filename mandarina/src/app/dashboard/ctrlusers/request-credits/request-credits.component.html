@@ -33,7 +33,7 @@
           </nz-badge>
         </td>
         <td>
-          <button nz-button nzType="primary" (click)="openModal()">
+          <button nz-button nzType="primary" (click)="openModal(item)">
             <i nz-icon nzType="eye" nzTheme="outline"></i>
           </button>
         </td>
@@ -42,7 +42,7 @@
   </nz-table>
 </div>
 <ng-template #modalCredits>
-  <nz-descriptions nzBordered>
+  <nz-descriptions nzBordered *ngIf="selectRequest">
     <nz-descriptions-item nzTitle="Nombre" nzSpan="2">
       {{ selectRequest.userName }}
     </nz-descriptions-item>

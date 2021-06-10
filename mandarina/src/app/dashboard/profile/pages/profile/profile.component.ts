@@ -11,23 +11,30 @@ import {
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { Inject, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['../../profile.component.scss'],
   encapsulation: ViewEncapsulation.Emulated
 })
+@UntilDestroy()
 export class ProfileComponent implements OnInit, OnChanges, OnDestroy {
   public user: IUser;
   subscriptions: Subscription[] = [];
   dateBirth: Date;
-  edit = false;
+  edit = true;
+
+  // email disabel
+  public emailDisable: boolean = false;
+
   constructor(
     private profileService: ProfileService,
     @Inject(PROFILECONFIG) public defaultConfig: ProfileConfig
   ) {}
   ngOnDestroy(): void {
-    this.subscriptions.forEach((sub) => {
+    this.subscriptions.forEach(sub => {
       if (sub) {
         sub.unsubscribe();
       }
@@ -42,9 +49,13 @@ export class ProfileComponent implements OnInit, OnChanges, OnDestroy {
   private getUserDefault() {
     const getUserSUB = this.profileService
       .getUser()
+      .pipe(untilDestroyed(this))
       .subscribe(({ data, loading }) => {
         if (data.getUser.resp) {
           this.user = Object.assign({}, data.getUser.user);
+          if (this.user.comfirmed) {
+            this.emailDisable = true;
+          }
           if (!this.user.description) {
             this.user = {
               ...this.user,
@@ -79,7 +90,8 @@ export class ProfileComponent implements OnInit, OnChanges, OnDestroy {
     if (!this.edit) {
       const subEditUser = this.profileService
         .editUser(this.user.id, this.user)
-        .subscribe((res) => {
+        .pipe(untilDestroyed(this))
+        .subscribe(res => {
           this.user = res.data.editUser.user;
         });
       this.subscriptions.push(subEditUser);

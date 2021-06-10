@@ -17,6 +17,7 @@ import {
   PrimaryGeneratedColumn,
   AfterInsert,
   BeforeUpdate,
+  getManager,
 } from "typeorm";
 
 import { GraphQLJSON } from "graphql-scalars";
@@ -86,11 +87,17 @@ export class Event extends BaseEntity {
   @Field((type) => Int, { nullable: true })
   id_resource!: number;
 
-  @OneToMany((type) => DetailEvent, (de) => de.event)
+  @OneToMany(
+    (type) => DetailEvent,
+    (de) => de.event
+  )
   detailEvents!: Promise<DetailEvent>;
 
   @Field((type) => [Sesion])
-  @OneToMany((type) => Sesion, (se) => se.event)
+  @OneToMany(
+    (type) => Sesion,
+    (se) => se.event
+  )
   sesions!: Promise<Sesion[]>;
 
   @ManyToOne((type) => BootstrapComment)
@@ -121,20 +128,11 @@ export class Event extends BaseEntity {
   @Field((type) => Int, { description: "Creator of the event" })
   id_user!: number;
 
-  /*=============================================
-  =            Events            =
-  =============================================*/
-  // create comments
-  @AfterInsert()
-  async createBootstrapComments() {
-    if (this.includeComments) {
-      const cb = await BootstrapComment.create().save();
-      this.id_comment = cb.id;
-    }
-  }
   @BeforeUpdate()
   async updateBootrapComments() {
     if (this.includeComments && !this.id_comment) {
+      console.log("new bootstrap created");
+
       const cb = await BootstrapComment.create().save();
       this.id_comment = cb.id;
     }
@@ -142,9 +140,11 @@ export class Event extends BaseEntity {
   @ManyToOne((type) => Categorie, { cascade: true })
   @JoinColumn({ name: "category_id" })
   categories!: Promise<Categorie>;
+
   @Field((type) => Int)
   @Column()
   category_id!: number;
+
   @Column({ default: 0 })
   @Field((type) => Int, { description: "cost of event in credits" })
   credits!: number;

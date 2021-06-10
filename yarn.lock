@@ -2791,7 +2791,7 @@ __metadata:
     tslib: ^2.0.0
     tslint: ~6.1.0
     tus-js-client: ^2.2.0
-    typescript: ^4.0.5
+    typescript: ~4.0.5
     uuid: ^8.3.2
     zone.js: ~0.10.2
   languageName: unknown
@@ -2813,6 +2813,7 @@ __metadata:
     "@types/mjml": ^4.7.0
     "@types/morgan": ^1.9.2
     "@types/node": ^14.14.7
+    "@types/node-fetch": ^2.5.10
     "@types/nodemailer": ^6.4.0
     "@types/pino": ^6.3.6
     "@types/sharp": ^0.27.1
@@ -2828,6 +2829,7 @@ __metadata:
     configstore: ^5.0.1
     copyfiles: ^2.4.1
     cross-env: ^7.0.3
+    date-fns: ^2.22.1
     dotenv: ^8.2.0
     express: ^4.17.1
     express-jwt: ^6.0.0
@@ -3797,6 +3799,16 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: ebb3b2239f1ae7f1041168121934fd1e3058c707a4986ebfa2b461d7d032ba6a9eee219c9c208d05893fde752215d2a78b54d1b5d17cd2e5bd5370e6ca5f2932
+  languageName: node
+  linkType: hard
+
+"@types/node-fetch@npm:^2.5.10":
+  version: 2.5.10
+  resolution: "@types/node-fetch@npm:2.5.10"
+  dependencies:
+    "@types/node": "*"
+    form-data: ^3.0.0
+  checksum: 7687038f73cf0f2e4bac8ced3abdfbb77f8b2719de2f180d0064238d7460c8b4dc0b39c08da35a76d7db9f86528599ea0f7cee7c468ad7cfecfe2db1c5863641
   languageName: node
   linkType: hard
 
@@ -6620,7 +6632,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"combined-stream@npm:^1.0.6, combined-stream@npm:~1.0.6":
+"combined-stream@npm:^1.0.6, combined-stream@npm:^1.0.8, combined-stream@npm:~1.0.6":
   version: 1.0.8
   resolution: "combined-stream@npm:1.0.8"
   dependencies:
@@ -7646,7 +7658,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"date-fns@npm:^2.10.0, date-fns@npm:^2.16.1":
+"date-fns@npm:^2.10.0, date-fns@npm:^2.16.1, date-fns@npm:^2.22.1":
   version: 2.22.1
   resolution: "date-fns@npm:2.22.1"
   checksum: a89dc6cdf3929b3f0d54d129a3c288df995fc3e6c8099dacc215e5404b4950fc8551d11a58968dfd3b8d576d0c5e637072f615e8f9c3e47d82c81e3952007d5b
@@ -9347,6 +9359,17 @@ __metadata:
   version: 0.6.1
   resolution: "forever-agent@npm:0.6.1"
   checksum: 9cc0054dd4ea5fc26e014b8c929d1fb9247e931e81165cbd965a712061d65fb84791b2124f64cd79492e516662b94068d29fe1d824732382237321b3f61955fe
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "form-data@npm:3.0.1"
+  dependencies:
+    asynckit: ^0.4.0
+    combined-stream: ^1.0.8
+    mime-types: ^2.1.12
+  checksum: 6574ff4d2d845c47ba288151a6e0573767eefdee9da358be199e0f0b66aa5c454e7d62ed5e0daef6f84167ba1e9596e064f36f206488e460ef449ef7b653cdfc
   languageName: node
   linkType: hard
 
@@ -18948,6 +18971,16 @@ typescript@^4.0.5:
   languageName: node
   linkType: hard
 
+"typescript@patch:typescript@~4.0.5#builtin<compat/typescript>":
+  version: 4.0.7
+  resolution: "typescript@patch:typescript@npm%3A4.0.7#builtin<compat/typescript>::version=4.0.7&hash=ddfc1b"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: f234923fbef722077d00ee008aa3492b02adbfe5a67b1c31687a0f7c6cb9946b759665ea643ffc1174298ffb1c59de0cc2abe1a91e57415d51951589eff12446
+  languageName: node
+  linkType: hard
+
 typescript@~3.9.7:
   version: 3.9.9
   resolution: "typescript@npm:3.9.9"
@@ -18955,6 +18988,16 @@ typescript@~3.9.7:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 22bbe953faa34903587f3bd8fb6c343d754745d4177e49da523a2a3b814fe5eaf60d9b23c2d401d038a08a5ac2d8094b268ba75adee840cc2358fb5a866624ab
+  languageName: node
+  linkType: hard
+
+typescript@~4.0.5:
+  version: 4.0.7
+  resolution: "typescript@npm:4.0.7"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 1b4c63a228efd6ceec80382b6001dad2c27c9bd46022f965dab907a13275c9ceb7b4b4de8be8902457bd644d2b0f9ddd8cf03b561e35d7cd2d793cf7554afd2d
   languageName: node
   linkType: hard
 

@@ -17,6 +17,7 @@ export class SubscriberEvent implements EntitySubscriberInterface<Event> {
       await this.actionOncategoryCount("MORE", event.entity);
     }
   }
+
   listenTo() {
     return Event;
   }
