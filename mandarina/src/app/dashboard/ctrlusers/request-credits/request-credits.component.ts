@@ -6,6 +6,7 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { CreditsreportService } from '../services/creditsreport.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { IReuestCredit } from '@core/models/credits.model';
 
 @Component({
   selector: 'app-request-credits',
@@ -57,8 +58,8 @@ export class RequestCreditsComponent implements OnInit {
     return this.selectRequest?.state == 'APPROVED' || false;
   }
 
-  openModal() {
-    this.selectRequest = this.requestCredits[0];
+  openModal(request: IRequestCredit) {
+    this.selectRequest = request;
     this.creditsRequest = this.selectRequest.credits;
     this.modalService.create({
       nzContent: this.tplModalCredits,

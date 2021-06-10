@@ -147,7 +147,7 @@ export class BoxCommentsComponent implements OnInit {
     } else {
       _.clone(this.comments)
         .slice(0, countComments)
-        .forEach((el) => this.addItemComment(el, null));
+        .forEach(el => this.addItemComment(el, null));
     }
   }
 
@@ -155,7 +155,8 @@ export class BoxCommentsComponent implements OnInit {
     if (this.isReply) {
       this.uiEventsService
         .onEventRespondComment('openReply')
-        .subscribe((payload) => {
+        .pipe(untilDestroyed(this))
+        .subscribe(payload => {
           if (
             payload.parentComment.id == this.parentComment.id &&
             payload.showBox
@@ -192,7 +193,7 @@ export class BoxCommentsComponent implements OnInit {
     } else {
       event = 'ADD';
     }
-    this.boxCommentsService.onEvent(event).subscribe((com) => {
+    this.boxCommentsService.onEvent(event).subscribe(com => {
       if (event == 'ADD:REPLY') {
         if (this.parentComment.id == com.comment.id_comment) {
           this.addItemComment(com.comment);
@@ -208,7 +209,7 @@ export class BoxCommentsComponent implements OnInit {
     if (clear) {
       this.vcComments.clear();
     }
-    comments.forEach((el) => this.addItemComment(el));
+    comments.forEach(el => this.addItemComment(el));
   }
 
   // add item comments

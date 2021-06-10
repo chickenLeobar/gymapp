@@ -1,9 +1,10 @@
+import { StandarError } from "./../../../utils/errors/shemaError";
 import { HistorialCredit } from "./../entities/historialCredit";
 import { CreditBootstrap } from "../entities/credit";
 import { User } from "../../../entity/User";
 import { getRepository } from "typeorm";
 import configStore from "../../../config/configstore";
-
+import pino from "../../../config/pino";
 export class UtilCredits {
   /**
    *
@@ -61,10 +62,29 @@ export class UtilCredits {
    * and less or more current credits
    */
   public static async changueCredits(historial: HistorialCredit) {
-    const bdCredit = await historial.bootstrap;
-    const currentCredits = bdCredit.currentCredits;
-    await CreditBootstrap.update(bdCredit.id, {
-      currentCredits: currentCredits + historial.credits,
-    });
+    try {
+      console.log("last method");
+      console.log(historial);
+
+      const bdCredit = await CreditBootstrap.findOne({
+        id: historial.id_credit,
+      });
+      if (!bdCredit) {
+        throw new StandarError(20);
+      }
+      const currentCredits = bdCredit.currentCredits;
+
+      await CreditBootstrap.update(bdCredit.id, {
+        currentCredits: currentCredits + historial.credits,
+      });
+    } catch (err) {
+      pino.error(
+        {
+          err: err,
+          extra: "runCrediDefault:85",
+        },
+        "Error creditos"
+      );
+    }
   }
 }

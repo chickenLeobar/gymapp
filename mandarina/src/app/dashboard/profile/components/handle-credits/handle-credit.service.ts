@@ -52,8 +52,8 @@ export class HandleCreditService {
     this.refHistorial = this.apollo.watchQuery({
       query: GET_HISTORIAL,
       variables: {
-        idCredit: id,
-      },
+        idCredit: id
+      }
     });
   }
 
@@ -65,9 +65,9 @@ export class HandleCreditService {
         mutation: REQUEST_CREDITS,
         variables: {
           input: {
-            ...data,
-          },
-        },
+            ...data
+          }
+        }
       })
       .pipe(tap(console.log));
   }
@@ -76,8 +76,8 @@ export class HandleCreditService {
     this.refRequestCredits = this.apollo.watchQuery({
       query: GET_REQUEST_CREDITS,
       variables: {
-        idCredit: id,
-      },
+        idCredit: id
+      }
     });
   }
 

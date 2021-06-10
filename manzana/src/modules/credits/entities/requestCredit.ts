@@ -49,6 +49,6 @@ export class RequestCredit extends BaseEntity {
   id_responsable!: number;
 
   @Field((type) => String, { nullable: true })
-  @Column("varchar", { length: 80, default: "PENDDING" })
+  @Column("varchar", { length: 80, default: "PENDDING" as TypeStateRequest })
   state!: TypeStateRequest;
 }

@@ -117,8 +117,8 @@
     font-size: 12px;
   }
   &__box {
-    width: 100%;
     @include comment();
+    min-width: 500px;
     &.replies {
       margin-top: 25px;
       margin-left: 35px;

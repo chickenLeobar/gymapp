@@ -23,7 +23,7 @@ import format from 'string-template';
 @Component({
   selector: 'app-write-comment',
   template: `
-    <mat-form-field [ngStyle]="styleBox">
+    <mat-form-field [ngStyle]="styleBox" class="write_box">
       <mat-label> {{ placeHolderBox }} </mat-label>
       <textarea
         (focus)="onFocusBox()"
@@ -150,7 +150,7 @@ export class BoxwriteCommentComponent implements OnInit, ControlValueAccessor {
       this.uiEventsService
         .onEventRespondComment('openReply')
         .pipe(untilDestroyed(this))
-        .subscribe((payload) => {
+        .subscribe(payload => {
           this.parentComment = payload.parentComment;
           this.placeHolderBox = format(placeHolders.reply, {
             nameUser: payload.parentComment.user.name

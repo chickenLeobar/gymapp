@@ -8,16 +8,17 @@ import { IHistorialCredit } from '@core/models/credits.model';
 import { Observable } from 'rxjs';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
+import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 interface IformPetitionCredits
   extends Pick<IReuestCredit, 'id_credit' | 'credits' | 'description'> {}
 import { NzTabPosition, NzTabPositionMode } from 'ng-zorro-antd/tabs';
-
 @Component({
   selector: 'app-handle-credits',
   templateUrl: './handle-credits.component.html',
   styleUrls: ['./handle-credits.component.scss'],
   providers: [HandleCreditService]
 })
+@UntilDestroy()
 export class HandleCreditsComponent implements OnInit {
   currentUser: IUser;
   historial: Observable<IHistorialCredit[]>;
@@ -39,7 +40,8 @@ export class HandleCreditsComponent implements OnInit {
       const value = this.formRequest.value;
       this.creditService
         .requestCredits({ ...value, id_credit: this.currentUser.credit.id })
-        .subscribe((_) => {
+        .toPromise()
+        .then((_) => {
           this.creditService.refRequestCredits.refetch();
         });
     }
@@ -54,9 +56,7 @@ export class HandleCreditsComponent implements OnInit {
     this.profileService.onlyUser().then((el) => {
       this.currentUser = el;
       this.creditService.initQueries(this.currentUser.credit.id);
-      this.historial = this.creditService
-        .valuechangueHistorial()
-        .pipe(tap(console.log));
+      this.historial = this.creditService.valuechangueHistorial();
       this.requestCredits = this.creditService.valueChanguesRequestCredits();
     });
   }

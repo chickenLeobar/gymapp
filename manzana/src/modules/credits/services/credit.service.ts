@@ -23,10 +23,12 @@ export class CreditService {
     @InjectRepository(RequestCredit)
     private requestService: Repository<RequestCredit>
   ) {}
-
   async addHistorialCredit(
     historial: Pick<HistorialCredit, "reason" | "credits" | "id_credit">
   ): Promise<HistorialCredit> {
+    console.log("historial");
+    console.log({ historial });
+
     const historialCreate = this.historialSerice.create(historial);
     return await historialCreate.save();
   }
@@ -36,7 +38,7 @@ export class CreditService {
       where: {
         id_credit: idCredit,
       },
-      order: { emit: "DESC" },
+      order: { emit: "ASC" },
     });
     return historial;
   }

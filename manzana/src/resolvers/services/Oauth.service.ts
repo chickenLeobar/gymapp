@@ -40,6 +40,5 @@ export class OAuthService {
       NotificationService.TOPIC_NOTIFICATION,
       notificaitonSave
     );
-    console.log("published");
   }
 }

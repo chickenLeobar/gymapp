@@ -34,11 +34,19 @@ export class TransactionResolver {
   ) {}
   @Mutation((type) => RequestCredit)
   async requesCredits(@Arg("input") request: InputRequest) {
+    /**
+     * FIXME: aque no deberia ir  siempre 3 como id del respomsable
+     */
+
     const requestCreaated = RequestCredit.create({
       ...request,
       id_responsable: 3,
     });
+
     const dbRequest = await requestCreaated.save();
+    console.log("request create");
+    console.log(dbRequest);
+
     return dbRequest;
   }
 
@@ -158,9 +166,14 @@ export class TransactionResolver {
     let creditsAmount = credits;
     const request = await RequestCredit.findOne({ id });
     if (!request) {
+      console.log("not exist request");
+
       return false;
     }
+
     if (request.state == "APPROVED") {
+      console.log("is approved");
+
       return true;
     }
     const message = configStore.addParams(
@@ -169,6 +182,10 @@ export class TransactionResolver {
     );
 
     const credit = await request?.creditBootstrap;
+    console.log("bootstrap");
+    console.log(credit);
+    console.log(credit.id);
+
     await this.creditService.addHistorialCredit({
       id_credit: credit.id,
       reason: message,

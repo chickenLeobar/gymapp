@@ -12,7 +12,7 @@ class CustomConfigStore extends Configstore {
     super(packageName, defaults, options);
   }
 
-  pushInArray(path: string, item: LeSafeAny, created: boolean = false) {
+  public pushInArray(path: string, item: LeSafeAny, created: boolean = false) {
     const data = this.get(path) as LeSafeAny[];
     const isArray = _.isArray(data);
     if (!data && !created) {

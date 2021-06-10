@@ -93,4 +93,9 @@ export const codes: Icode[] = [
     code: 19,
     message: "Se esta realizando la solicitud con usuario que no existe",
   },
+  {
+    code: 20,
+    message: "(20) :Ha ocurrido un problema al procesar los creditos",
+    description: "Esto suele suceder por un error del sistema",
+  },
 ];

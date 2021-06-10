@@ -59,8 +59,6 @@ export class UserResolver implements ResolverInterface<User> {
   @Query((type) => UserResponse)
   async getUser(@Arg("id", (type) => ID) id: number): Promise<UserResponse> {
     const user = await this.getRepo.findOne({ id: id });
-    console.table(user);
-
     if (!user) {
       throw new StandarError(undefined, "Usuario no encontrado");
     }
