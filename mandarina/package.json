@@ -38,7 +38,7 @@
     "@ngrx/store": "^12.1.0",
     "@types/gsap": "^1.20.2",
     "@videogular/ngx-videogular": "^3.0.1",
-    "angularx-social-login": "^3.4.1",
+    "angularx-social-login": "^3.5.7",
     "apollo-angular": "^2.1.0",
     "apollo-angular-link-http": "^1.11.0",
     "apollo-link-ws": "^1.0.20",
