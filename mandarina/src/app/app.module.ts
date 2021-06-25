@@ -22,6 +22,7 @@ const tokenGetter = () => {
   return localStorage.getItem('token');
 };
 import { Injector } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 registerLocaleData(es);
 @NgModule({
   declarations: [AppComponent],
@@ -43,7 +44,8 @@ registerLocaleData(es);
     AuthModule,
     FontAwesomeModule,
     GraphQLModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent],

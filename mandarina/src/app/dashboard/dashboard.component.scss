@@ -38,33 +38,33 @@ $space-sidebar: 90px;
   z-index: 10;
   min-height: 100vh;
   box-shadow: 1px 0 5px rgba(0, 21, 41, 0.35);
-  a {
-    color: black;
-  }
-  .sidebar_item {
-    ul {
-      li {
-        &:hover {
-          background-color: #4849ff;
-          a {
-            color: white;
-          }
-        }
-      }
-    }
-  }
+  // a {
+  //   color: black;
+  // }
+  // .sidebar_item {
+  //   ul {
+  //     li {
+  //       &:hover {
+  //         background-color: #4849ff;
+  //         a {
+  //           color: white;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
-.sibebar_item.ant-menu-item-selected {
-  color: white;
-  border: none;
-  outline: none;
-}
-.sibebar_item:hover {
-  color: white;
-  border: none;
-  outline: none;
-  background: #4849ff;
-}
+// .sibebar_item.ant-menu-item-selected {
+//   color: white;
+//   border: none;
+//   outline: none;
+// }
+// .sibebar_item:hover {
+//   color: white;
+//   border: none;
+//   outline: none;
+//   background: #4849ff;
+// }
 .header-trigger {
   height: 64px;
   padding: 20px 24px;

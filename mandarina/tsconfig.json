@@ -22,6 +22,7 @@
        "@helpers/*"  : ["src/app/helpers/*"],
        "@fragments/*" : ["src/app/@core/fragments/*"],
        "@models/*" : ["src/app/@core/models/*"],
+       "@shared/*" : ["src/app/@shared/*"]
     },
     "allowSyntheticDefaultImports": true
   }
