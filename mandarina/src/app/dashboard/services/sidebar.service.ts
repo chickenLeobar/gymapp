@@ -82,6 +82,13 @@ export class SidebarService {
       ]
     },
     {
+      name: 'Gymanasio',
+      icon: 'profile',
+      isFont: false,
+      roles: [ERol.CREATOR, ERol.ADMIN],
+      items: [{ name: 'Sedes', route: './sede' }]
+    },
+    {
       name: 'Categorias',
       icon: 'bars',
       isFont: false,

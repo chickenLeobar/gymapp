@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { IconsProviderModule } from './icons-provider.module';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -23,6 +23,8 @@ const tokenGetter = () => {
 };
 import { Injector } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
+import { FormlyModule } from '@ngx-formly/core';
+import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
 registerLocaleData(es);
 @NgModule({
   declarations: [AppComponent],
@@ -45,7 +47,10 @@ registerLocaleData(es);
     FontAwesomeModule,
     GraphQLModule,
     NgxSpinnerModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot({}, {}),
+    ReactiveFormsModule,
+    FormlyModule.forRoot(),
+    FormlyNgZorroAntdModule
   ],
   providers: [{ provide: NZ_I18N, useValue: es_ES }],
   bootstrap: [AppComponent],

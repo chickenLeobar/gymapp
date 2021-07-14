@@ -1,3 +1,4 @@
+@use 'sass:math';
 @function percent($percent, $size) {
-  @return ($percent * $size) / 100;
+  @return math.div($percent * $size, 100);
 }
