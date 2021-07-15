@@ -17,9 +17,11 @@ export class Categorie extends BaseEntity {
   @PrimaryGeneratedColumn()
   @Field()
   id!: number;
+
   @Column()
   @Field()
   name!: string;
+
   @Column("text")
   @Field()
   description!: string;

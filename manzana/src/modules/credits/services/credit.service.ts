@@ -26,8 +26,7 @@ export class CreditService {
   async addHistorialCredit(
     historial: Pick<HistorialCredit, "reason" | "credits" | "id_credit">
   ): Promise<HistorialCredit> {
-    console.log("historial");
-    console.log({ historial });
+   
 
     const historialCreate = this.historialSerice.create(historial);
     return await historialCreate.save();

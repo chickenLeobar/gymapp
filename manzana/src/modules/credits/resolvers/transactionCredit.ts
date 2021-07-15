@@ -182,9 +182,6 @@ export class TransactionResolver {
     );
 
     const credit = await request?.creditBootstrap;
-    console.log("bootstrap");
-    console.log(credit);
-    console.log(credit.id);
 
     await this.creditService.addHistorialCredit({
       id_credit: credit.id,

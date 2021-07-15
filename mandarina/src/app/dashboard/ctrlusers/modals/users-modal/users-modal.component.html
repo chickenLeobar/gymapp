@@ -33,10 +33,13 @@
   </nz-descriptions>
   <nz-divider></nz-divider>
   <nz-space>
-    <nz-space-item>
-      <button nz-button nzType="primary" (click)="openModalCredits()">
-        Aplicar creditos
-      </button>
-    </nz-space-item>
+    <button
+      *nzSpaceItem
+      nz-button
+      nzType="primary"
+      (click)="openModalCredits()"
+    >
+      Aplicar creditos
+    </button>
   </nz-space>
 </div>

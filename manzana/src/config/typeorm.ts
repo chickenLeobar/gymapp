@@ -19,7 +19,6 @@ export async function connect() {
       synchronize: true,
     }).catch((er) => console.log(er));
   } catch (err) {
-    
     Logger.error("Database Error", err);
   }
 }

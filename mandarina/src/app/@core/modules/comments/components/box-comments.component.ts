@@ -27,22 +27,22 @@ import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
     <!--Box comments -->
     <ul class="comments__box" [ngClass]="{ replies: isReply }">
       <nz-space nzDirection="vertical">
-        <nz-space-item>
+        <div *nzSpaceItem>
           <app-write-comment
             *ngIf="isReply && showBoxWrite"
             (hideEvent)="showBoxWrite = false"
             (onComment)="sendReplyComment($event)"
             inReply
           ></app-write-comment>
-        </nz-space-item>
-        <nz-space-item>
+        </div>
+        <div *nzSpaceItem>
           <ng-template #commentsBox></ng-template>
           <nz-empty
             *ngIf="isEmpty$ | async"
             nzNotFoundContent="Se el primero en comentar"
           >
           </nz-empty>
-        </nz-space-item>
+        </div>
       </nz-space>
       <btn-more-comments
         (moreCommentsEvent)="onMoreComments($event)"

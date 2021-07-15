@@ -15,7 +15,8 @@
     "fixpre": "preconstruct fix",
     "prepare": "husky install",
     "commit": "cz",
-    "commit:signed": "cz -S"
+    "commit:signed": "cz -S",
+    "dev:all": "concurrently \"yarn manypkg run mandarina start\" \"yarn manypkg run manzana dev\" "
   },
   "dependencies": {
     "@babel/core": "^7.14.3",
@@ -29,7 +30,10 @@
     "@commitlint/config-conventional": "^12.1.4",
     "@manypkg/cli": "^0.18.0",
     "@preconstruct/cli": "^2.1.0",
-    "commitizen": "^4.2.4"
+    "@types/concurrently": "^6",
+    "commitizen": "^4.2.4",
+    "concurrently": "^6.2.0",
+    "typescript": "^4.3.5"
   },
   "config": {
     "commitizen": {

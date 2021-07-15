@@ -121,7 +121,9 @@ export class UserResolver implements ResolverInterface<User> {
     const relativePath = `profiles/${uuid() + id}.webp`;
     const path = pathModule.resolve("uploads", `${relativePath}`);
     return new Promise(async (resolve, reject) => {
-      const transform = sharp().resize({ width: 800 }).webp();
+      const transform = sharp()
+        .resize({ width: 800 })
+        .webp();
       try {
         createReadStream()
           .pipe(transform)

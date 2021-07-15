@@ -11,7 +11,7 @@ import { symbols } from '@core/data/money';
     <form nz-form [formGroup]="adMoneyForm" (ngSubmit)="addPriceItem()">
       <nz-space nzDirection="horizontal">
         <!-- price credit -->
-        <nz-space-item>
+        <div *nzSpaceItem>
           <nz-form-control>
             <nz-form-label> Precio por credito </nz-form-label>
             <nz-input-number
@@ -19,9 +19,9 @@ import { symbols } from '@core/data/money';
               formControlName="price"
             ></nz-input-number>
           </nz-form-control>
-        </nz-space-item>
+        </div>
         <!-- money -->
-        <nz-space-item style="width: 100px">
+        <div *nzSpaceItem style="width: 100px">
           <nz-form-control>
             <nz-select nzPlaceHolder="Moneda" formControlName="symbol">
               <nz-option
@@ -31,13 +31,17 @@ import { symbols } from '@core/data/money';
               ></nz-option>
             </nz-select>
           </nz-form-control>
-        </nz-space-item>
+        </div>
         <!-- addd -->
-        <nz-space-item>
-          <button type="submit" nz-button [disabled]="!adMoneyForm.valid">
-            agregar
-          </button>
-        </nz-space-item>
+
+        <button
+          *nzSpaceItem
+          type="submit"
+          nz-button
+          [disabled]="!adMoneyForm.valid"
+        >
+          agregar
+        </button>
       </nz-space>
     </form>
     <!-- list added -->

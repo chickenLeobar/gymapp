@@ -52,31 +52,28 @@ import format from 'string-template';
       </mat-hint>
       <mat-hint>
         <nz-space>
-          <nz-space-item>
-            <nz-form-item>
-              <button
-                nz-button
-                *ngIf="inReply"
-                nzDanger
-                nzType="primary"
-                (click)="hideBox()"
-              >
-                cancelar
-              </button>
-            </nz-form-item>
-          </nz-space-item>
-          <nz-space-item>
-            <nz-form-item>
-              <button
-                nz-button
-                nzType="primary"
-                (click)="handleSubmit()"
-                [hidden]="inputValue.length == 0"
-              >
-                comentar
-              </button>
-            </nz-form-item>
-          </nz-space-item>
+          <nz-form-item *nzSpaceItem>
+            <button
+              nz-button
+              *ngIf="inReply"
+              nzDanger
+              nzType="primary"
+              (click)="hideBox()"
+            >
+              cancelar
+            </button>
+          </nz-form-item>
+
+          <nz-form-item *nzSpaceItem>
+            <button
+              nz-button
+              nzType="primary"
+              (click)="handleSubmit()"
+              [hidden]="inputValue.length == 0"
+            >
+              comentar
+            </button>
+          </nz-form-item>
         </nz-space>
       </mat-hint>
     </mat-form-field>

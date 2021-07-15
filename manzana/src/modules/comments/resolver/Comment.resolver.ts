@@ -93,8 +93,6 @@ export class CommentResolver implements ResolverInterface<Comment> {
     @Arg("idComment", (type) => ID, { nullable: true }) idComment?: string,
     @Arg("bootstrap", (type) => Int, { nullable: true }) bootstrap?: number
   ): Promise<CommentSubResponse> {
-    console.log("respond", "idComment");
-
     if (!payload.comment) {
       payload.comment = await Comment.findOne({ id: payload.idComment });
     }
