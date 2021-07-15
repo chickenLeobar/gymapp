@@ -1,3 +1,4 @@
+import { ISede } from './index';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,6 +8,7 @@ import {
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { HandleSedeComponent } from './components/handle-sede/handle-sede.component';
 import { SedeStoreService } from './services/sede.store';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-sede',
   templateUrl: './sede.component.html',
@@ -14,6 +16,8 @@ import { SedeStoreService } from './services/sede.store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SedeComponent implements OnInit {
+  control: FormControl = new FormControl('');
+
   constructor(
     private _modalService: NzModalService,
     private _viewContainerRef: ViewContainerRef,
@@ -21,13 +25,32 @@ export class SedeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.openHandleSede();
+    this.control.valueChanges.subscribe(d => {
+      this.sedeStoreService.passFilters({
+        query: d
+      });
+    });
   }
 
   public vm$ = this.sedeStoreService.vm$;
 
   public actionCreate() {
     this.openHandleSede();
+  }
+
+  public actionEdit(sede: ISede) {
+    this.sedeStoreService.addSelectSede(sede);
+    this.openHandleSede();
+  }
+
+  public actionDelete(sede: ISede) {
+    this._modalService.confirm({
+      nzContent: '¿Desea eliminar esta sede?',
+      nzTitle: 'Advertencia',
+      nzOnOk: () => {
+        this.sedeStoreService.deleteSede(sede);
+      }
+    });
   }
 
   public openHandleSede() {

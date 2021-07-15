@@ -19,7 +19,7 @@ export const CREATE_SEDE = gql`
 
 export const DELETE_SEDE = gql`
   ${SEDE_FRAGMENT}
-  mutation deleteSede($id: int!) {
+  mutation deleteSede($id: Int!) {
     deleteSede(id: $id) {
       ...sedeFragment
     }

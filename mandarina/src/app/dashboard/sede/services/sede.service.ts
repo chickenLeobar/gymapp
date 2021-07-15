@@ -4,13 +4,15 @@ import { Apollo, gql } from 'apollo-angular';
 import { CREATE_SEDE, DELETE_SEDE, UPDATE_SEDE, GET_SEDES } from '../graphql';
 import { ISede } from '../';
 import { tap, pluck } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 @Injectable()
 export class SedeService {
   constructor(private apollo: Apollo) {}
-
   // create
-
   public createSede(sede: Partial<ISede>) {
+    console.log('pass create');
+
     return this.apollo
       .mutate({
         mutation: CREATE_SEDE,
@@ -30,18 +32,22 @@ export class SedeService {
           id: id
         }
       })
-      .pipe(tap(console.log));
+      .pipe(pluck('data', 'deleteSede')) as Observable<ISede>;
   }
   // update
 
   public updateSede(id: number, sede: Partial<ISede>) {
-    return this.apollo.mutate({
-      mutation: UPDATE_SEDE,
-      variables: {
-        id: id,
-        sede: sede
-      }
-    });
+    delete sede.id;
+    delete sede['__typename'];
+    return this.apollo
+      .mutate({
+        mutation: UPDATE_SEDE,
+        variables: {
+          id: id,
+          sede: sede
+        }
+      })
+      .pipe(pluck('data', 'updateSede'));
   }
 
   // get sedes

@@ -23,7 +23,6 @@ export class SedeResolver {
   @Mutation((type) => Sede)
   async createSede(@Arg("sede", (type) => SedeInput) sede: SedeInput) {
     const pre_save = this.sedeRepository.create(sede);
-
     return this.sedeRepository.save(pre_save);
   }
   @Mutation((type) => Sede)
@@ -34,7 +33,12 @@ export class SedeResolver {
     const oldSede = await this.sedeRepository.findOne(id);
     if (oldSede) {
       const newSede = this.sedeRepository.merge(oldSede, sede);
-      return await this.sedeRepository.save(newSede);
+      const res = await this.sedeRepository.update(id, newSede);
+      if (res?.affected) {
+        return newSede;
+      } else {
+        throw new ApolloError("Problema al editar la sede");
+      }
     }
     throw new StandarError(undefined, "Sede no encontrada");
   }
@@ -49,11 +53,10 @@ export class SedeResolver {
     if (result?.affected) {
       return oldSede;
     } else {
-      throw new ApolloError("Problema al editar la sede");
+      throw new ApolloError("Problema al eliminar la sede");
     }
   }
   // retrive sedes
-
   @Query((type) => [Sede])
   async sedes(@Arg("id", (type) => Int, { nullable: true }) id: number) {
     let options = {} as FindManyOptions<Sede>;

@@ -3,9 +3,10 @@
   <div nz-row class="w-100">
     <nz-form-item nz-col nzSpan="8">
       <nz-form-control>
-        <nz-input-group nzSuffixIcon="search">
-          <input nz-input placeholder="Buscar" />
-        </nz-input-group>
+        <search-input
+          placeHolder="Buscar"
+          [formControl]="control"
+        ></search-input>
       </nz-form-control>
     </nz-form-item>
     <button
@@ -44,13 +45,23 @@
         </td>
         <td>
           <nz-space>
-            <button *nzSpaceItem nz-button nzDanger>
+            <button
+              (click)="actionDelete(sede)"
+              *nzSpaceItem
+              nz-button
+              nzDanger
+            >
               <i nz-icon nzType="delete" nzTheme="outline"></i>
             </button>
-            <button *nzSpaceItem nz-button nzType="primary">
+            <!-- <button *nzSpaceItem nz-button nzType="primary">
               <i nz-icon nzType="eye" nzTheme="outline"></i>
-            </button>
-            <button *nzSpaceItem nz-button nzType="primary">
+            </button> -->
+            <button
+              (click)="actionEdit(sede)"
+              *nzSpaceItem
+              nz-button
+              nzType="primary"
+            >
               <i nz-icon nzType="edit" nzTheme="outline"></i>
             </button>
           </nz-space>

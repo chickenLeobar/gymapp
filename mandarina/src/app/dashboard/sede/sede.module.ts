@@ -8,7 +8,9 @@ import { HandleSedeComponent } from './components/handle-sede/handle-sede.compon
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyNgZorroAntdModule } from '@ngx-formly/ng-zorro-antd';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SearchInputModule } from '@core/ui/search-input';
 import services from './services';
+import { LoadingModule } from '@delon/abc/loading';
 
 @NgModule({
   declarations: [SedeComponent, HandleSedeComponent],
@@ -18,7 +20,9 @@ import services from './services';
     FormlyModule,
     ReactiveFormsModule,
     FormlyNgZorroAntdModule,
-    ...uiModules
+    SearchInputModule,
+    ...uiModules,
+    LoadingModule
   ],
   providers: [...services]
 })

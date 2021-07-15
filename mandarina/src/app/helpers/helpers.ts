@@ -16,7 +16,7 @@ export function getVideoPreviw(
   callback: (img: ArrayBuffer | string) => void
 ): void {
   const reader = new FileReader();
-  reader.addEventListener('load', (e) => callback(e.target.result));
+  reader.addEventListener('load', e => callback(e.target.result));
   reader.readAsDataURL(video);
 }
 
@@ -45,4 +45,25 @@ export const isValidValue = (value: any): boolean => {
 
 export const cloneArray = <T>(v: T[]): T[] => {
   return Object.assign([] as T[], v);
+};
+
+/**
+ * @param filters
+ * @returns :
+ *  - true : filters contain values.
+ * - false : all filters are empty
+ */
+export const filtersAreDirty = (filters: { [key: string]: unknown }) => {
+  if (!filters) {
+    return false;
+  }
+  return Object.values(filters).some(val => {
+    if (typeof val == 'number' && val != -1) {
+      return true;
+    }
+    if (typeof val == 'string' && val != '') {
+      return true;
+    }
+    return false;
+  });
 };
