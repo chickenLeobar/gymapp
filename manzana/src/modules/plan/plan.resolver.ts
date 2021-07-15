@@ -1,9 +1,9 @@
 import { StandarError } from "./../../utils/errors/shemaError";
-import { Resolver, Mutation, Arg, Int } from "type-graphql";
+import { Resolver, Mutation, Arg, Int, Query } from "type-graphql";
 import { Service } from "typedi";
 import { Plan } from "./Plan.entity";
 import { InputPlan } from "./plan.input";
-import { Repository } from "typeorm";
+import { Repository, FindManyOptions } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
 import { ApolloError } from "apollo-server-express";
 @Resolver()
@@ -25,7 +25,7 @@ export class PlanResolver {
     const bdPlan = await this.planRepository.findOne(id);
     if (bdPlan) {
       const newPlan = this.planRepository.merge(bdPlan, plan);
-      return await this.planRepository.save(newPlan);
+      return await this.planRepository.update(id, newPlan);
     }
     throw new StandarError(undefined, "plan no encontrado");
   }
@@ -42,5 +42,16 @@ export class PlanResolver {
     } else {
       throw new ApolloError("plan no encontrado");
     }
+  }
+
+  @Query((type) => [Plan])
+  async retrievePlans(
+    @Arg("id", (type) => Int, { nullable: true }) id: number
+  ) {
+    let filters = {} as FindManyOptions<Plan>;
+    if (id) {
+      filters.where = { id };
+    }
+    return this.planRepository.find(filters);
   }
 }

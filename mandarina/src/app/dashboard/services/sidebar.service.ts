@@ -86,7 +86,13 @@ export class SidebarService {
       icon: 'profile',
       isFont: false,
       roles: [ERol.CREATOR, ERol.ADMIN],
-      items: [{ name: 'Sedes', route: './sede' }]
+      items: [
+        { name: 'Sedes', route: './sede' },
+        {
+          name: 'planes',
+          route: './plans'
+        }
+      ]
     },
     {
       name: 'Categorias',

@@ -58,7 +58,10 @@ const childrenRoutes: Routes = [
     path: 'sede',
     loadChildren: () => import('./sede/sede.module').then(m => m.SedeModule)
   },
-
+  {
+    path: 'plans',
+    loadChildren: () => import('./plan/plan.module').then(m => m.PlanModule)
+  },
   {
     path: '**',
     pathMatch: 'full',

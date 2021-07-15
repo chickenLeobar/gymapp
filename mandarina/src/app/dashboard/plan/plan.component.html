@@ -1,0 +1,60 @@
+<container mode="small" *ngIf="vm$ | async as vm">
+  <le-title lineAddon text="Control de Planes"></le-title>
+  <div nz-row class="w-100">
+    <nz-form-item nz-col nzSpan="8">
+      <nz-form-control>
+        <search-input placeHolder="Buscar"></search-input>
+      </nz-form-control>
+    </nz-form-item>
+    <button nz-button nz-col nzOffset="5" nzType="primary">
+      Nuevo plan
+    </button>
+  </div>
+  <nz-table #plansTable [nzData]="vm.plans">
+    <thead>
+      <tr>
+        <th>
+          Nombre
+        </th>
+
+        <th>
+          Dirección
+        </th>
+
+        <th>
+          accciones
+        </th>
+        <th>
+          meses
+        </th>
+        <th>
+          Acciones
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plan of plansTable.data">
+        <td>
+          {{ plan.name }}
+        </td>
+        <td>
+          {{ plan.price }}
+        </td>
+        <td>
+          {{ plan.months }}
+        </td>
+        <td>
+          <nz-space>
+            <button *nzSpaceItem nz-button nzDanger>
+              <i nz-icon nzType="delete" nzTheme="outline"></i>
+            </button>
+
+            <button *nzSpaceItem nz-button nzType="primary">
+              <i nz-icon nzType="edit" nzTheme="outline"></i>
+            </button>
+          </nz-space>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</container>
